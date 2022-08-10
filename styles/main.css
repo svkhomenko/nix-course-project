@@ -1,0 +1,115 @@
+@import './_vars.css';
+
+body {
+    padding: 10px 8vw 0;
+    background-color: var(--white-color);
+    color: var(--black-color);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* header */
+
+.nav_menu {
+    display: flex;
+    justify-content: end;
+}
+
+.nav_menu_items {
+    box-sizing: border-box;
+    margin-left: 23px;
+    color: var(--grey-color);
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav_menu_items:hover,
+.nav_menu_items.active {
+    text-shadow: 0 0 0.9px var(--black-color), 0 0 0.9px var(--black-color);
+    color: var(--black-color);
+}
+
+.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro figure {
+    margin: 0;
+}
+
+.logo_outer {
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.logo_outer img {
+    width: auto;
+    height: 100%;
+}
+
+.logo_subtext {
+    font-size: 7px;
+    text-transform: uppercase;
+}
+
+.intro_telephone_outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 33px;
+    color: inherit;
+}
+
+.intro_telephone_outer span {
+    display: block;
+}
+
+.intro_telephone_outer a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.intro h1 {
+    margin-right: 8vw;
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.intro_btns_container {
+    display: flex;
+    justify-content: space-between;
+    width: 170px;
+}
+
+.intro_btns_outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.intro_btn_subtext {
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.intro_likes::after {
+    content: ' шт';
+}
+
+.intro_cart::after {
+    content: ' $';
+}
+
