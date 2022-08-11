@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- <meta charset="UTF-8"> -->
     <title>Интернет-магазин с бесплатной доставкой</title>
 
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
     <link href="../styles/main.css" rel="stylesheet" type="text/css">
 </head>
@@ -25,13 +24,13 @@
         </nav>
 
         <div class="intro">
-            <figure>
+            <a href="./main.html" class="logo_container">
                 <div class="logo_outer">
                     <img src="../images/logo.png" alt="logo">
                 </div>
-                <figcaption class="logo_subtext">вместе дешеле.org</figcaption>
-            </figure>
-
+                <div class="logo_subtext">вместе дешеле.org</div>
+            </a>
+            
             <div class="intro_telephone_outer">
                 <span class="iconify" data-icon="carbon:phone-filled"></span>
                 <a href="tel: +19688905556">+1 (968) 890 55 56</a>
@@ -54,8 +53,205 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="search_container">
+            <button class="catalog_btn">
+                <span class="iconify" data-icon="bx:menu-alt-right"></span>
+                каталог
+            </button>
+
+            <form>
+                <input class="search_input" type="search" name="search" placeholder="Введите что вам нужно">
+                <button class="search_btn">Поиск</button>
+            </form>
+        </div>
+
+        <nav class="catalog_horizontal">
+            <a href="#" class="catalog_horizontal_items">сумки</a>
+            <a href="#" class="catalog_horizontal_items">для дома</a>
+            <a href="#" class="catalog_horizontal_items active">косметички</a>
+            <a href="#" class="catalog_horizontal_items">для путешествий</a>
+            <a href="#" class="catalog_horizontal_items">для животных</a>
+            <a href="#" class="catalog_horizontal_items">для рукоделия</a>
+            <a href="#" class="catalog_horizontal_items">органайзеры</a>
+            <a href="#" class="catalog_horizontal_items">пепельницы</a>
+            <a href="#" class="catalog_horizontal_items">подарки для нее</a>
+            <a href="#" class="catalog_horizontal_items">подарки для него</a>
+        </nav>
+
+        <div class="breadcrumbs_container">
+            <a href="#" class="breadcrumbs">главная</a>
+            <a href="#" class="breadcrumbs">каталог</a>
+        </div>
     </header>
+
+    <main>
+        <div class="catalog_container">
+            <h2>каталог</h2>
+
+            <ul class='catalog'>
+                <li class="open">
+                    <span class="catalog_item">
+                        сумки
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">сумка для ноутбука</a></li>
+                        <li><a href="#">сумка для фотоаппарата</a></li>
+                        <li><a href="#">спортивная/дорожная сумка</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        для дома
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">органайзер для вещей</a></li>
+                        <li><a href="#">чехол для мебели</a></li>
+                        <li><a href="#">органайзер для мелочей</a></li>
+                        <li><a href="#">плейсматы</a></li>
+                        <li><a href="#">органайзер для проводов</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        косметички
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">дорожный органайзер</a></li>
+                        <li><a href="#">для сумочки</a></li>
+                        <li><a href="#" class="active">непромокаемые</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        для путешествий
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">органайзер для документов</a></li>
+                        <li><a href="#">футляр для зубной щетки</a></li>
+                        <li><a href="#">маски для сна</a></li>
+                        <li><a href="#">чехол для чемодана</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        аксессуары для очков
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">футляр для очков</a></li>
+                        <li><a href="#">цепочка для очков</a></li>
+                        <li><a href="#">атомайзер</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        товары для животных
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">коврик под миску</a></li>
+                        <li><a href="#">коврик под лоток</a></li>
+                        <li><a href="#">защитный воротник</a></li>
+                    </ul>
+                </li>
+                <li class="open">
+                    <span class="catalog_item">
+                        рукоделие
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                    <ul class='subcatalog'>
+                        <li><a href="#">бисер</a></li>
+                        <li><a href="#">стразы пришивные</a></li>
+                        <li><a href="#">органайзеры пластиковые</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="catalog_item">
+                        пояс для инструментов
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li class="close">
+                    <span class="catalog_item">
+                        таблетницы
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li>
+                    <span class="catalog_item">
+                        пепельницы
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li>
+                    <span class="catalog_item">
+                        бахилы силиконовые
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li class="close">
+                    <span class="catalog_item">
+                        четки
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li class="close">
+                    <span class="catalog_item">
+                        подарки для нее
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+                <li class="close">
+                    <span class="catalog_item">
+                        подарки для него
+                        <span class="iconify open" data-icon="ep:arrow-up"></span>
+                        <span class="iconify close" data-icon="ep:arrow-down"></span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="listing_container">
+            <div class="sort_container">
+                <div class="sort_nav">
+                    Сортировать:
+                    <a href="#" class="sort_nav_items active">Популярные</a>
+                    <a href="#" class="sort_nav_items">Сначала дешевые</a>
+                    <a href="#" class="sort_nav_items">Сначала дорогие</a>
+                </div>
+                <span class="iconify" data-icon="akar-icons:settings-vertical"></span>
+            </div>
+
+            <div class="listing">
+                <div class="block"></div>
+                <div class="block"></div>
+                <div class="block"></div>
+                <div class="block"></div>
+                <div class="block"></div>
+                <div class="block"></div>
+            </div>
+
+        </div>
+
+    </main>
     
     
     <!-- <span class="iconify" data-icon="ant-design:heart-outlined"></span> -->

@@ -1,115 +1,150 @@
 @import './_vars.css';
+@import './header.css';
 
-body {
-    padding: 10px 8vw 0;
-    background-color: var(--white-color);
-    color: var(--black-color);
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* header */
-
-.nav_menu {
+main {
     display: flex;
-    justify-content: end;
+    align-items: stretch;
 }
 
-.nav_menu_items {
-    box-sizing: border-box;
-    margin-left: 23px;
-    color: var(--grey-color);
-    font-size: 10px;
-    line-height: 12px;
+/* catalog */
+
+.catalog_container {
+    min-width: 320px;
+    padding-right: 30px;
     text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
+
+    /* display: none; */
 }
 
-.nav_menu_items:hover,
-.nav_menu_items.active {
-    text-shadow: 0 0 0.9px var(--black-color), 0 0 0.9px var(--black-color);
-    color: var(--black-color);
-}
-
-.intro {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.intro figure {
+.catalog_container h2 {
     margin: 0;
-}
-
-.logo_outer {
-    width: 64px;
-    height: 64px;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.logo_outer img {
-    width: auto;
-    height: 100%;
-}
-
-.logo_subtext {
-    font-size: 7px;
-    text-transform: uppercase;
-}
-
-.intro_telephone_outer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 33px;
-    color: inherit;
-}
-
-.intro_telephone_outer span {
-    display: block;
-}
-
-.intro_telephone_outer a {
-    display: block;
-    color: inherit;
-    text-decoration: none;
+    margin-bottom: 40px;
     font-weight: 700;
+    font-size: 24px;
+}
+
+.catalog {
+    margin: 0;
+    padding: 0;
+}
+
+.catalog > li {
+    list-style: none;
+    font-weight: 700;
+    margin-bottom: 10px;
+    cursor: default;
+}
+
+.catalog > li.open {
+    margin-bottom: 30px;
+}
+
+li.open .iconify.open,
+li.close .iconify.close {
+    position: relative;
+    top: 2px;
+    font-weight: 400;
+    color: var(--grey-color);
+}
+
+li.open .iconify.close,
+li.close .iconify.open,
+li:not(.close):not(.open) .iconify {
+    display: none;
+}
+
+.catalog_item {
     font-size: 16px;
 }
 
-.intro h1 {
-    margin-right: 8vw;
+.catalog_item:hover {
+    color: var(--grey-color);
+}
+
+.catalog_item:hover .iconify.close,
+.catalog_item:hover .iconify.open {
+    font-weight: 900;
+    color: var(--black-color);
+}
+
+.subcatalog {
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+}
+
+.subcatalog > li {
+    list-style: none;
+    font-weight: 400;
+}
+
+.subcatalog a { 
+    display: inline-block;
+    padding: 8px 20px;
+    text-decoration: none;
     font-size: 14px;
-    text-align: center;
-    text-transform: uppercase;
+    color: inherit;
 }
 
-.intro_btns_container {
-    display: flex;
-    justify-content: space-between;
-    width: 170px;
-}
-
-.intro_btns_outer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    font-size: 25px;
-}
-
-.intro_btn_subtext {
-    white-space: nowrap;
-    font-size: 10px;
+.subcatalog a:hover,
+.subcatalog a.active {
+    background-color: var(--light-grey-color);
+    border-radius: 30px;
     font-weight: 700;
 }
 
-.intro_likes::after {
-    content: ' шт';
+/* listing_container */
+
+.listing_container {
+    width: 100%;
 }
 
-.intro_cart::after {
-    content: ' $';
+.sort_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sort_nav {
+    font-size: 10px;
+}
+
+.sort_nav_items {
+    margin-left: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.sort_nav_items:hover,
+.sort_nav_items.active {
+    text-shadow: 0 0 0.7px var(--black-color), 0 0 0.7px var(--black-color);
+}
+
+.sort_container .iconify {
+    font-size: 24px;
+    color: var(--light-grey-color);
+}
+
+.sort_container .iconify:hover {
+    color: var(--black-color);
+}
+
+/* listing */
+
+.listing {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+
+    margin-top: 50px;
+}
+
+.block {
+    width: 100%;
+    height: 300px;
+    background-color: blue;
+
 }
 
