@@ -1,0 +1,86 @@
+@import './_vars.css';
+
+.catalog_container {
+    min-width: 320px;
+    padding-right: 30px;
+    text-transform: uppercase;
+
+    /* display: none; */
+}
+
+.catalog_title {
+    margin: 0;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.catalog {
+    margin: 0;
+    padding: 0;
+}
+
+.catalog > li {
+    list-style: none;
+    font-weight: 700;
+    margin-bottom: 10px;
+    cursor: default;
+}
+
+.catalog > li.open {
+    margin-bottom: 30px;
+}
+
+li.open .iconify.open,
+li.close .iconify.close {
+    position: relative;
+    top: 2px;
+    font-weight: 400;
+    color: var(--grey-color);
+}
+
+li.open .iconify.close,
+li.close .iconify.open,
+li:not(.close):not(.open) .iconify {
+    display: none;
+}
+
+.catalog_item {
+    font-size: 16px;
+}
+
+.catalog_item:hover {
+    color: var(--grey-color);
+}
+
+.catalog_item:hover .iconify.close,
+.catalog_item:hover .iconify.open {
+    font-weight: 900;
+    color: var(--black-color);
+}
+
+.subcatalog {
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+}
+
+.subcatalog > li {
+    list-style: none;
+    font-weight: 400;
+}
+
+.subcatalog a { 
+    display: inline-block;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-size: 14px;
+    color: inherit;
+}
+
+.subcatalog a:hover,
+.subcatalog a.active {
+    background-color: var(--light-grey-color);
+    border-radius: 30px;
+    font-weight: 700;
+}

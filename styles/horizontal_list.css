@@ -1,0 +1,25 @@
+@import './_vars.css';
+@import './product_card.css';
+
+.horizontal_list_container {
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.horizontal_list_title {
+    margin: 0;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.horizontal_list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.horizontal_list .product_card {
+    width: 170px;
+}
