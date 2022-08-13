@@ -1,1 +1,66 @@
 @import './_vars.css';
+
+footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: -6vw;
+    margin-right: -6vw;
+    padding: 24px 6vw;
+    background-color: var(--black-color);
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+footer a:hover {
+    color: var(--grey-color);
+}
+
+.footer_logo_outer {
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    margin-right: 100px;
+}
+
+.footer_logo_outer img {
+    width: auto;
+    height: 100%;
+}
+
+.footer_block {
+    margin-left: 40px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.footer_block a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer_links_outer {
+    position: absolute;
+    bottom: 20px;
+    right: 6vw;
+    display: flex;
+}
+
+.footer_links_outer a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer_links {
+    margin-right: 5px;
+    font-weight: 700;
+    font-size: 8px;
+    text-align: end;
+}
+
+.footer_network {
+    margin-left: 10px;
+    font-size: 20px;
+}

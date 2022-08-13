@@ -167,6 +167,7 @@
 
 .rating_fill {
     position: relative;
+    top: -2px;
     width: 25px;
     height: 25px;
     background-size: 24px 24px;
