@@ -136,7 +136,8 @@
 }
 
 .product_number_btn {
-    background-color: #E9E9E9;
+    padding: 3px 0;
+    background-color: var(--off-white-color);
     color: var(--grey-color);
     font-size: 10px;
 }
@@ -188,5 +189,5 @@
     width: 100%;
     height: 100%;
     background-size: 24px 24px;
-    background-image: url('../images/empy_star.png');
+    background-image: url('../images/empty_star.png');
 }
