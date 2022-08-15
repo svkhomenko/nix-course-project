@@ -20,7 +20,8 @@ body {
 .button {
     border: 2px solid var(--black-color);
     border-radius: 40px;
-    background-color: var(--black-color);
+    background-color: var(--black-color);;
+    font-family: inherit;
     text-transform: uppercase;
     color: white;
 }

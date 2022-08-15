@@ -135,7 +135,7 @@ main.not_avaliable .main_product_img {
 
 .main_description_container {
     width: 100%;
-    min-width: 300px;
+    min-width: 400px;
     margin: 0 42px 0 50px;
 }
 
@@ -295,9 +295,17 @@ main.not_avaliable .main_product_img {
     justify-content: space-between;
 }
 
-.main_description_add_outer button {
-    padding: 7px 30px;
+.main_description_add_outer .button {
+    padding: 7px 25px;
     border-radius: 45px;
+    font-size: 14px;
+}
+
+.main_description_add_outer .main_description_continue_btn {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: inherit;
 }
 
 /* main_nav_container */
@@ -327,6 +335,11 @@ main.not_avaliable .main_product_img {
 
 .main_nav_item.description {
     margin-right: 70px;
+}
+
+.main_description_outer {
+    font-size: 14px;
+    color: var(--black-color);
 }
 
 /* main_comments */
@@ -400,7 +413,7 @@ main.not_avaliable .main_product_img {
     box-sizing: border-box;
     padding: 8px 0 8px 15px;
     border: none;
-    background: var(--light-grey-color);
+    background-color: var(--off-white-color);
     border-radius: 10px;
     font-family: inherit;
 }
@@ -415,11 +428,59 @@ main.not_avaliable .main_product_img {
 
 textarea.main_your_comment_inputs {
     width: 100%;
+    min-width: 150px;
     resize: none;
+}
+
+.main_your_comment_btns_outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-left: 25px;
 }
 
 .main_your_comment_label {
     font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.main_your_comment_rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+	min-width: 120px;
+    width: 100%;
+}
+
+.main_your_comment_rating > input {
+	display: none;
+}
+
+.main_your_comment_rating > label {
+    display: block;
+	padding: 0;
+	cursor: pointer;
+	font-size: 28px;
+	line-height: 28px;
+	color: var(--light-grey-color);
+}
+
+.main_your_comment_rating > label:before {
+	content: '★';
+}
+
+.main_your_comment_rating > input:checked ~ label,
+.main_your_comment_rating > label:hover,
+.main_your_comment_rating > label:hover ~ label {
+	color: gold;
+}
+
+.main_your_comment_form button[type="submit"] {
+    position: absolute;
+    bottom: 0;
+    padding: 5px 20px;
+    border-radius: 45px;
 }
 
 /* main_colors */

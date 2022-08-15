@@ -214,7 +214,7 @@
 
             <div class="main_description_add_outer">
                 <button class='main_description_add_btn button'>В корзину</button>
-                <button class='main_description_continue_btn button negative'>Продолжить покупки</button>
+                <a href="./main.html" class='main_description_continue_btn button negative'>Продолжить покупки</a>
             </div>
 
             <div class="main_nav_container">
@@ -222,69 +222,87 @@
                 <div class="main_nav_item comments active">Отзывы (<span class="main_nav_comments_number">12</span>)</div>
             </div>
 
-            <div class="main_comment_container">
-                <div class="main_comment_header">
-                    <div class="main_comment_title">
-                        <span class="main_comment_author">Алексей,</span>
-                        <time class="main_comment_date" datetime="2022-05-22">22.05.2022</time>
+            <div class="main_comments_outer">
+                <div class="main_comment_container">
+                    <div class="main_comment_header">
+                        <div class="main_comment_title">
+                            <span class="main_comment_author">Алексей,</span>
+                            <time class="main_comment_date" datetime="2022-05-22">22.05.2022</time>
+                        </div>
+                        <div class="main_comment_rating_empty">
+                            <div class="main_comment_rating_fill"></div>
+                        </div>
                     </div>
-                    <div class="main_comment_rating_empty">
-                        <div class="main_comment_rating_fill"></div>
+                    <div class="main_comment_text">
+                        Стильная женская косметичка - неотъемлемый атрибут каждой девушки!
                     </div>
                 </div>
-                <div class="main_comment_text">
-                    Стильная женская косметичка - неотъемлемый атрибут каждой девушки!
+    
+                <div class="main_comment_container">
+                    <div class="main_comment_header">
+                        <div class="main_comment_title">
+                            <span class="main_comment_author">Елена,</span>
+                            <time class="main_comment_date" datetime="2022-06-01">01.06.2022</time>
+                        </div>
+                        <div class="main_comment_rating_empty">
+                            <div class="main_comment_rating_fill"></div>
+                        </div>
+                    </div>
+                    <div class="main_comment_text">
+                        Она удобная, практичная и многофункциональная. Косметичка способна уместить всю косметику, необходимую в дороге, при этом не занимая много места. Так же в нее можно поместить наушники, различные украшения, деньги, мобильный телефон, солнцезащитные очки и другие мелочи.
+                    </div>
                 </div>
+    
+                <div class="main_comment_container">
+                    <div class="main_comment_header">
+                        <div class="main_comment_title">
+                            <span class="main_comment_author">Светлана,</span>
+                            <time class="main_comment_date" datetime="2022-06-20">20.06.2022</time>
+                        </div>
+                        <div class="main_comment_rating_empty">
+                            <div class="main_comment_rating_fill"></div>
+                        </div>
+                    </div>
+                    <div class="main_comment_text">
+                        Косметичка прозрачная выполнена из ПВХ. Габариты косметички: длина 31 см, ширина 22,5 см, высота 11 см. Идеальна для бассейна, душа.
+                    </div>
+                </div>
+                
+                <div class="main_load_comments_btn">Загрузить еще</div>
+    
+                <div class="main_your_comment_header">Добавить отзыв</div>
+    
+                <form class="main_your_comment_form">
+                    <div class="main_your_comment_inputs_outer">
+                        <input class="main_your_comment_inputs" type="text" name="name" placeholder="Введите имя" required>
+                        <input class="main_your_comment_inputs" type="email" name="email" placeholder="Адрес электронной почты" required>
+                    </div>
+                    <div class="main_your_comment_inputs_outer">
+                        <textarea class="main_your_comment_inputs" name="comment" rows="6" placeholder="Добавьте комментарий" required></textarea>
+                        <div class="main_your_comment_btns_outer">
+                            <div class="main_your_comment_label">Поставьте оценку</div>
+                            <div class="main_your_comment_rating">
+                                <input type="radio" id="star-5" name="rating" value="5">
+                                <label for="star-5" title="Оценка «5»"></label>	
+                                <input type="radio" id="star-4" name="rating" value="4">
+                                <label for="star-4" title="Оценка «4»"></label>    
+                                <input type="radio" id="star-3" name="rating" value="3">
+                                <label for="star-3" title="Оценка «3»"></label>  
+                                <input type="radio" id="star-2" name="rating" value="2">
+                                <label for="star-2" title="Оценка «2»"></label>    
+                                <input type="radio" id="star-1" name="rating" value="1">
+                                <label for="star-1" title="Оценка «1»"></label>
+                            </div>
+                            <button class="button" type="submit">отправить</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="main_comment_container">
-                <div class="main_comment_header">
-                    <div class="main_comment_title">
-                        <span class="main_comment_author">Елена,</span>
-                        <time class="main_comment_date" datetime="2022-06-01">01.06.2022</time>
-                    </div>
-                    <div class="main_comment_rating_empty">
-                        <div class="main_comment_rating_fill"></div>
-                    </div>
-                </div>
-                <div class="main_comment_text">
-                    Она удобная, практичная и многофункциональная. Косметичка способна уместить всю косметику, необходимую в дороге, при этом не занимая много места. Так же в нее можно поместить наушники, различные украшения, деньги, мобильный телефон, солнцезащитные очки и другие мелочи.
-                </div>
-            </div>
-
-            <div class="main_comment_container">
-                <div class="main_comment_header">
-                    <div class="main_comment_title">
-                        <span class="main_comment_author">Светлана,</span>
-                        <time class="main_comment_date" datetime="2022-06-20">20.06.2022</time>
-                    </div>
-                    <div class="main_comment_rating_empty">
-                        <div class="main_comment_rating_fill"></div>
-                    </div>
-                </div>
-                <div class="main_comment_text">
-                    Косметичка прозрачная выполнена из ПВХ. Габариты косметички: длина 31 см, ширина 22,5 см, высота 11 см. Идеальна для бассейна, душа.
-                </div>
-            </div>
-            
-            <div class="main_load_comments_btn">Загрузить еще</div>
-
-            <div class="main_your_comment_header">Добавить отзыв</div>
-
-            <form class="main_your_comment_form">
-                <div class="main_your_comment_inputs_outer">
-                    <input class="main_your_comment_inputs" type="text" name="name" placeholder="Введите имя" required>
-                    <input class="main_your_comment_inputs" type="email" name="email" placeholder="Адрес электронной почты" required>
-                </div>
-                <div class="main_your_comment_inputs_outer">
-                    <textarea class="main_your_comment_inputs" name="comment" rows="6" placeholder="Добавьте комментарий" required></textarea>
-                    <div>
-                        <div class="main_your_comment_label">Поставьте оценку</div>
-                    </div>
-                </div>
-            </form>
-
-
+            <!-- <div class="main_description_outer">
+                <p>Косметичка прозрачная WashBag на молнии и гладкой ручкой, представленна в двух размерах. Женская и мужская силиконовая сумка полностью герметична и защищена от попадания влаги и намокания. Дорожная косметичка и сумка хорошо держат форму, высококачественные замки прослужат не один год. Косметичка полностью прозрачна, что придаёт ей более изяшный вид, прозрачный дизайн позволяет легко найти то, что вам нужно без особых усилий. </p>
+                <p>Возьмите универсальный органайзер с собой в дорогу, путешествие, отдых, на фитнес. Водонепроницаемую сумочку идеально взять с собой в баню, в бассейн, на пляж, в душ. Косметичку пенал применяют также для школьных принадлежностей, канцелярии. В неё с лёгкостью поместится любой ассортимент косметики, личные вещи, средства гигиены и одежда. Сумка-косметичка - унисекс,подходит для женщин,мужчин и детей.</p>
+            </div> -->
 
         </div>
 
