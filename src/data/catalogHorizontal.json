@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "href": "/bags",
+        "text": "сумки"
+    },
+    {   
+        "id": 2,
+        "href": "/for-home",
+        "text": "для дома"
+    },
+    {
+        "id": 3,
+        "href": "/cosmetic-bags",
+        "text": "косметички"
+    },
+    {
+        "id": 4,
+        "href": "/for-traveling",
+        "text": "для путешествий"
+    },
+    {   
+        "id": 5,
+        "href": "/for-animals",
+        "text": "для животных"
+    },
+    {   
+        "id": 6,
+        "href": "/for-needlework",
+        "text": "для рукоделия"
+    },
+    {   
+        "id": 7,
+        "href": "/organizers",
+        "text": "органайзеры"
+    },
+    {   
+        "id": 8,
+        "href": "/ashtrays",
+        "text": "пепельницы"
+    },
+    {   
+        "id": 9,
+        "href": "/gifts-for-her",
+        "text": "подарки для нее"
+    },
+    {   
+        "id": 10,
+        "href": "/gifts-for-him",
+        "text": "подарки для него"
+    }
+]

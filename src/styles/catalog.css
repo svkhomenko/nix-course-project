@@ -31,26 +31,12 @@
     margin-bottom: 30px;
 }
 
-/* li.open .iconify.open,
-li.close .iconify.close {
-    position: relative;
-    top: 2px;
-    font-weight: 400;
-    color: var(--grey-color);
-} */
-
 li .iconify {
     position: relative;
     top: 2px;
     font-weight: 400;
     color: var(--grey-color);
 }
-
-/* li.open .iconify.close,
-li.close .iconify.open,
-li:not(.close):not(.open) .iconify {
-    display: none;
-} */
 
 .catalog_item {
     font-size: 16px;

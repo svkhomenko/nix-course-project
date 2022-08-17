@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "img": "product1.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "123",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "4.7",
+        "isAvaliable": false
+    }
+]

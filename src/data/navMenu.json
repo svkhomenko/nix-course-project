@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "href": "/about-us",
+        "text": "о нас"
+    },
+    {
+        "id": 2,
+        "href": "/wholesale",
+        "text": "опт"
+    },
+    {
+        "id": 3,
+        "href": "/payment-and-delivery",
+        "text": "оплата и доставка"
+    },
+    {
+        "id": 4,
+        "href": "/",
+        "text": "акции"
+    },
+    {
+        "id": 5,
+        "href": "/blog",
+        "text": "блог"
+    },
+    {
+        "id": 6,
+        "href": "/contacts",
+        "text": "контакты"
+    }
+]

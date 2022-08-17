@@ -1,61 +1,23 @@
 import React from "react";
-import { AItem } from './tools.js';
+import { Link, NavLink } from "react-router-dom";
 
 class NavMenu extends React.Component {
-    render() {
-        let navMenuItems = [
-            {
-                id: 1,
-                href: '#',
-                text: 'о нас',
-                isActive: false
-            },
-            {
-                id: 2,
-                href: '#',
-                text: 'опт',
-                isActive: false
-            },
-            {
-                id: 3,
-                href: '#',
-                text: 'оплата и доставка',
-                isActive: false
-            },
-            {
-                id: 4,
-                href: '#',
-                text: 'акции',
-                isActive: true
-            },
-            {
-                id: 5,
-                href: '#',
-                text: 'блог',
-                isActive: false
-            },
-            {
-                id: 6,
-                href: '#',
-                text: 'контакты',
-                isActive: false
-            },
-        ];
+    constructor(props) {
+        super(props);
 
+        this.navMenuItems = require('./data/navMenu.json');
+    }
+
+    render() {
         return (
             <nav className="nav_menu">
-                {navMenuItems.map((item) => {
-                    let className = 'nav_menu_items';
-                    if (item.isActive) {
-                        className += ' active';
-                    }
-
-                    return <AItem key={item.id}
-                            href={item.href}
-                            className={className}
-                            text={item.text} />
-                    }
-                )}
+                {this.navMenuItems.map((item) => (
+                    <NavLink key={item.id}
+                            to={item.href}
+                            className={({ isActive }) => isActive ? "nav_menu_items active" : "nav_menu_items"}>
+                        {item.text}
+                    </NavLink>
+                ))}
             </nav>
         ); 
     }
@@ -117,113 +79,44 @@ class SearchContainer extends React.Component {
 }
 
 class CatalogHorizontal extends React.Component {
-    render() {
-        let catalogHorizontalItems = [
-            {
-                id: 1,
-                href: '#',
-                text: 'сумки',
-                isActive: false
-            },
-            {
-                id: 2,
-                href: '#',
-                text: 'для дома',
-                isActive: false
-            },
-            {
-                id: 3,
-                href: '#',
-                text: 'косметички',
-                isActive: true
-            },
-            {
-                id: 4,
-                href: '#',
-                text: 'для путешествий',
-                isActive: false
-            },
-            {
-                id: 5,
-                href: '#',
-                text: 'для животных',
-                isActive: false
-            },
-            {
-                id: 6,
-                href: '#',
-                text: 'для рукоделия',
-                isActive: false
-            },
-            {
-                id: 7,
-                href: '#',
-                text: 'органайзеры',
-                isActive: false
-            },
-            {
-                id: 8,
-                href: '#',
-                text: 'пепельницы',
-                isActive: false
-            },
-            {
-                id: 9,
-                href: '#',
-                text: 'подарки для нее',
-                isActive: false
-            },
-            {
-                id: 10,
-                href: '#',
-                text: 'подарки для него',
-                isActive: false
-            },
-        ];
+    constructor(props) {
+        super(props);
 
+        this.catalogHorizontalItems = require('./data/catalogHorizontal.json');
+    }
+
+    render() {
         return (
             <nav className="catalog_horizontal">
-                {catalogHorizontalItems.map((item) => {
-                    let className = 'catalog_horizontal_items';
-                    if (item.isActive) {
-                        className += ' active';
-                    }
-
-                    return <AItem key={item.id}
-                            href={item.href}
-                            className={className}
-                            text={item.text} />
-                    }
-                )}
+                {this.catalogHorizontalItems.map((item) => (
+                    <NavLink key={item.id}
+                            to={item.href}
+                            className={({ isActive }) => isActive ? "catalog_horizontal_items active" : "catalog_horizontal_items"}>
+                        {item.text}
+                    </NavLink>
+                ))}
             </nav>
-        ); 
+        );
     }
 }
 
 class BreadcrumbsContainer extends React.Component {
-    render() {
-        let breadcrumbs = [
-            {
-                id: 1,
-                href: '/',
-                text: 'главная',
-            },
-            {
-                id: 2,
-                href: '#',
-                text: 'каталог',
-            },
-        ];
+    constructor(props) {
+        super(props);
 
+        this.breadcrumbs = require('./data/breadcrumbs.json');
+    }
+
+    render() {
         return (
             <div className="breadcrumbs_container">
-                {breadcrumbs.map((item) => {
-                    return <AItem key={item.id}
-                            href={item.href}
-                            className='breadcrumbs'
-                            text={item.text} />
-                    }
-                )}
+                {this.breadcrumbs.map((item) => (
+                    <Link key={item.id}
+                            to={item.href}
+                            className='breadcrumbs'>
+                        {item.text}
+                    </Link>
+                ))}
             </div>
         ); 
     }

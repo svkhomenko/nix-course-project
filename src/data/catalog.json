@@ -1,0 +1,213 @@
+[
+    {
+        "id": 1,
+        "category": "сумки",
+        "href": "/bags",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "сумка для ноутбука",
+                "href": "/bags/laptop-bag"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "сумка для фотоаппарата",
+                "href": "/bags/camera-bag"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "спортивная/дорожная сумка",
+                "href": "/bags/travel-bag"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "category": "для дома",
+        "href": "/for-home",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "органайзер для вещей",
+                "href": "/for-home/organizer-for-stuff"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "чехол для мебели",
+                "href": "/for-home/dustsheet"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "органайзер для мелочей",
+                "href": "/for-home/organizer-for-trifle"
+            },
+            {
+                "id": 4,
+                "subcategoryName": "плейсматы",
+                "href": "/for-home/placemats"
+            },
+            {
+                "id": 5,
+                "subcategoryName": "органайзер для проводов",
+                "href": "/for-home/wire-organizer"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "category": "косметички",
+        "href": "/cosmetic-bags",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "дорожный органайзер",
+                "href": "/cosmetic-bags/travel-organizer"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "для сумочки",
+                "href": "/cosmetic-bags/for-handbag"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "непромокаемые",
+                "href": "/cosmetic-bags/waterproof"
+            }
+        ]
+    },
+    {
+        "id": 4 ,
+        "category": "для путешествий",
+        "href": "/for-traveling",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "органайзер для документов",
+                "href": "/for-traveling/document-organizer"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "футляр для зубной щетки",
+                "href": "/for-traveling/toothbrush-case"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "маски для сна",
+                "href": "/for-traveling/sleep-masks"
+            },
+            {
+                "id": 4,
+                "subcategoryName": "чехол для чемодана",
+                "href": "/for-traveling/suitcase-cover"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "category": "аксессуары для очков",
+        "href": "/glasses-accessories",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "футляр для очков",
+                "href": "/glasses-accessories/glasses-case"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "цепочка для очков",
+                "href": "/glasses-accessories/glasses-chain"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "атомайзер",
+                "href": "/glasses-accessories/atomizer"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "category": "товары для животных",
+        "href": "/for-animals",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "коврик под миску",
+                "href": "/for-animals/bowl-mat"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "коврик под лоток",
+                "href": "/for-animals/tray-mat"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "защитный воротник",
+                "href": "/for-animals/protective-collar"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "category": "рукоделие",
+        "href": "/for-needlework",
+        "subcategory": [
+            {
+                "id": 1,
+                "subcategoryName": "бисер",
+                "href": "/for-needlework/beads"
+            },
+            {
+                "id": 2,
+                "subcategoryName": "стразы пришивные",
+                "href": "/for-needlework/sew-on-rhinestones"
+            },
+            {
+                "id": 3,
+                "subcategoryName": "органайзеры пластиковые",
+                "href": "/for-needlework/plastic-organizers"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "category": "пояс для инструментов",
+        "href": "/tool-belt",
+        "subcategory": []
+    },
+    {
+        "id": 9,
+        "category": "таблетницы",
+        "href": "/pill-boxes",
+        "subcategory": []
+    },
+    {
+        "id": 10,
+        "category": "пепельницы",
+        "href": "/ashtrays",
+        "subcategory": []
+    },
+    {
+        "id": 11,
+        "category": "бахилы силиконовые",
+        "href": "/silicone-shoe-cover",
+        "subcategory": []
+    },
+    {
+        "id": 12,
+        "category": "четки",
+        "href": "/rosary",
+        "subcategory": []
+    },
+    {
+        "id": 13,
+        "category": "подарки для нее",
+        "href": "/gifts-for-her",
+        "subcategory": []
+    },
+    {
+        "id": 14,
+        "category": "подарки для него",
+        "href": "/gifts-for-him",
+        "subcategory": []
+    }
+]

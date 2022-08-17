@@ -64,11 +64,6 @@
     color: white;
 }
 
-.like_outer:not(.like) .iconify.like,
-.like_outer.like .iconify:not(.like) {
-    display: none;
-}
-
 .product_title {
     margin-top: 18px;
     margin-bottom: 8px;
@@ -85,18 +80,6 @@
     border-radius: 50%;
     margin-right: 8px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-}
-
-.product_color.white {
-    background-color: white;
-}
-
-.product_color.black {
-    background-color: pink;
-}
-
-.product_color.pink {
-    background-color: black;
 }
 
 .product_values {
@@ -140,6 +123,11 @@
     background-color: var(--off-white-color);
     color: var(--grey-color);
     font-size: 10px;
+}
+
+.disabled > .product_number_btn {
+    background-color: var(--white-color);
+    color: var(--light-grey-color);
 }
 
 .product_price::after,
