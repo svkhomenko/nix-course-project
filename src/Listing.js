@@ -7,9 +7,18 @@ class SortContainer extends React.Component {
             <div className="sort_container">
                 <div className="sort_nav">
                     Сортировать:
-                    <a href="#" className="sort_nav_items active">Популярные</a>
-                    <a href="#" className="sort_nav_items">Сначала дешевые</a>
-                    <a href="#" className="sort_nav_items">Сначала дорогие</a>
+                    <span className={this.props.activeIndex === 0 ? "sort_nav_items active" : "sort_nav_items"} 
+                        data-sort-index='0' onClick={this.props.funcSort}>
+                        Популярные
+                    </span>
+                    <span className={this.props.activeIndex === 1 ? "sort_nav_items active" : "sort_nav_items"} 
+                        data-sort-index='1' onClick={this.props.funcSort}>
+                        Сначала дешевые
+                    </span>
+                    <span className={this.props.activeIndex === 2 ? "sort_nav_items active" : "sort_nav_items"} 
+                        data-sort-index='2' onClick={this.props.funcSort}>
+                        Сначала дорогие
+                    </span>
                 </div>
                 <span className="iconify" data-icon="akar-icons:settings-vertical"></span>
             </div>
@@ -17,32 +26,60 @@ class SortContainer extends React.Component {
     }
 }
 
-class Listing extends React.Component {
+class ListingContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            products: require('./data/products.json'),
+            sortIndex: 0
+        };
 
-        this.products = require('./data/products.json');
+        this.sortFunctionsArray = [
+            this.sortByPopularity,
+            this.sortCheapFirst,
+            this.sortExpensiveFirst
+        ];
+
+        this.sortProducts = this.sortProducts.bind(this);
     }
 
-    render() {
-        return (
-            <div className="listing">
-                {this.products.map((item) => (
-                    <ProductCard key={item.id}
-                                    item={item}>
-                    </ProductCard>
-                ))}
-            </div>
-        );
+    componentDidMount() {
+        this.sortProducts({target:{dataset:{sortIndex:0}}});
     }
-}
 
-class ListingContainer extends React.Component {
+    sortByPopularity(a, b) {
+        return b.numberOfBuying - a.numberOfBuying;
+    }
+
+    sortCheapFirst(a, b) {
+        return a.price - b.price;
+    }
+
+    sortExpensiveFirst(a, b) {
+        return b.price - a.price;
+    }
+
+    sortProducts(event) {
+        let index = event.target.dataset.sortIndex;
+        this.setState((state) => ({
+            products: state.products.sort(this.sortFunctionsArray[index]),
+            sortIndex: index
+        }));
+    }
+
     render() {
         return (
             <div className="listing_container">
-                <SortContainer />
-                <Listing />
+                <SortContainer funcSort={this.sortProducts}
+                                activeIndex={this.state.sortIndex}/>
+
+                <div className="listing">
+                    {this.state.products.map((item) => (
+                        <ProductCard key={item.id}
+                                        item={item}>
+                        </ProductCard>
+                    ))}
+                </div>
                 
 
                 {/* <div class="page_index_container">

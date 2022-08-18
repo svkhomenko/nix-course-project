@@ -1,6 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+class RatingContainer extends React.Component {
+    getRatingForStar() {
+        let rating = 100 * this.props.rating / 5;
+        return 100 - rating;
+    }
+
+    render() {
+        return (
+            <div className="rating_container">
+                <span className="rating_number">{this.props.rating}</span>
+                <div className="rating_fill">
+                    <div className="rating" style={{height: this.getRatingForStar() + '%'}}></div>
+                    <div className="rating_empty"></div>
+                </div>
+            </div>
+        );
+    }
+}
+
+class ProductNumberOuter extends React.Component {
+    render() {
+        return (
+            <div>
+                <div className='product_number_outer'>
+                    <div onClick={this.props.funcDown}
+                        className={this.props.number === 1 ? "disabled" : ""}>
+                        <span className="iconify product_number_btn" data-icon="ep:arrow-left" />
+                    </div>
+                    <span className="product_number">{this.props.number}</span>
+                    <div onClick={this.props.funcUp}>
+                        <span className="iconify product_number_btn" data-icon="ep:arrow-right" />
+                    </div>
+                </div>
+                количество
+            </div>
+        );
+    }
+}
+
 class ProductCard extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +52,7 @@ class ProductCard extends React.Component {
         this.likeClick = this.likeClick.bind(this);
         this.productNumberUp = this.productNumberUp.bind(this);
         this.productNumberDown = this.productNumberDown.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
     linkClick(event) {
@@ -46,8 +86,12 @@ class ProductCard extends React.Component {
                 productNumber: state.productNumber - 1
             });
         });
-    } 
+    }
 
+    addToCart(event) {
+        event.prevent = true;
+    }
+    
     render() {
         let item = this.props.item;
 
@@ -92,29 +136,17 @@ class ProductCard extends React.Component {
                         <div className="product_wholesale">{item.wholesale}</div>
                         опт от <span className="product_wholesale_min">{item.wholesaleMin}</span>
                     </div>
-                    <div>
-                        <div className='product_number_outer'>
-                            <div onClick={this.productNumberDown}
-                                className={this.state.productNumber === 1 ? "disabled" : ""}>
-                                <span className="iconify product_number_btn" data-icon="ep:arrow-left" />
-                            </div>
-                            <span className="product_number">{this.state.productNumber}</span>
-                            <div onClick={this.productNumberUp}>
-                                <span className="iconify product_number_btn" data-icon="ep:arrow-right" />
-                            </div>
-                        </div>
-                        количество
-                    </div>
+                    {item.isAvaliable 
+                    ? <ProductNumberOuter funcDown={this.productNumberDown} number={this.state.productNumber} funcUp={this.productNumberUp}/> 
+                    : <RatingContainer rating={item.rating}/>}
                 </div>
                 <div className="product_cart_add_outer">
-                    {/* <button className='product_cart_add_btn button'>В корзину</button> */}
-                    <div className="rating_container">
-                        <span className="rating_number">{item.rating}</span>
-                        {/* <div className="rating_fill">
-                            <div className="rating"></div>
-                            <div className="rating_empty"></div>
-                        </div> */}
-                    </div>
+                    <button onClick={this.addToCart} 
+                        className='product_cart_add_btn button'
+                        style={item.isAvaliable ? {} : {width: "100%"}}>
+                    {item.isAvaliable ? "В корзину" : "В лист ожидания"}
+                    </button>
+                    {item.isAvaliable && <RatingContainer rating={item.rating}/>}
                 </div>
             </Link>
         );

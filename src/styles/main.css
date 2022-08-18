@@ -28,8 +28,6 @@ main {
 
 .sort_nav_items {
     margin-left: 10px;
-    text-decoration: none;
-    color: inherit;
     cursor: pointer;
 }
 

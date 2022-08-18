@@ -21,6 +21,182 @@
         "wholesale": "103",
         "wholesaleMin": "5 000",
         "rating": "4.7",
-        "isAvaliable": false
+        "isAvaliable": true,
+        "numberOfBuying": 2360
+    },
+    {
+        "id": 2,
+        "img": "product2.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "1023",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "3.5",
+        "isAvaliable": true,
+        "numberOfBuying": 260
+    },
+    {
+        "id": 3,
+        "img": "product1.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "123",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "4.7",
+        "isAvaliable": true,
+        "numberOfBuying": 2360
+    },
+    {
+        "id": 4,
+        "img": "product1.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "123",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "4.7",
+        "isAvaliable": false,
+        "numberOfBuying": 2360
+    },
+    {
+        "id": 5,
+        "img": "product3.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "13",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "4",
+        "isAvaliable": true,
+        "numberOfBuying": 20360
+    },
+    {
+        "id": 6,
+        "img": "product4.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "1203",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "2.7",
+        "isAvaliable": true,
+        "numberOfBuying": 2560
+    },
+    {
+        "id": 7,
+        "img": "product1.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "12003",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "4",
+        "isAvaliable": true,
+        "numberOfBuying": 2360
+    },
+    {
+        "id": 8,
+        "img": "product2.png",
+        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "colors": [
+            {
+                "id": 1,
+                "color": "#ffffff"
+            },
+            {
+                "id": 2,
+                "color": "#ffc0cb"
+            },
+            {
+                "id": 3,
+                "color": "#000000"
+            }
+        ],
+        "price": "1323",
+        "wholesale": "103",
+        "wholesaleMin": "5 000",
+        "rating": "3.3",
+        "isAvaliable": true,
+        "numberOfBuying": 236660
     }
 ]
