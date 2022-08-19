@@ -1,6 +1,8 @@
 import React from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
+import { Recommended, RecentlyWatched } from "./HorizontalList.js";
+import Footer from "./Footer.js";
 import "./styles/main.css";
 
 class MainPage extends React.Component {
@@ -9,6 +11,9 @@ class MainPage extends React.Component {
             <>
                 <Header />
                 <Main />
+                <Recommended />
+                <RecentlyWatched />
+                <Footer />
             </>
         );
     }

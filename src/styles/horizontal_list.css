@@ -15,11 +15,20 @@
     text-align: center;
 }
 
-.horizontal_list {
+.horizontal_list_full {
     display: flex;
     justify-content: space-between;
 }
 
-.horizontal_list .product_card {
+.horizontal_list_not_full {
+    display: flex;
+}
+
+.horizontal_list_full .product_card,
+.horizontal_list_not_full .product_card {
     width: 170px;
+}
+
+.horizontal_list_not_full .product_card:not(:last-of-type) {
+    margin-right: 30px;
 }
