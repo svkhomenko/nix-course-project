@@ -22,7 +22,9 @@
         "wholesaleMin": "5 000",
         "rating": "4.7",
         "isAvaliable": true,
-        "numberOfBuying": 2360
+        "numberOfBuying": 2360,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 2,
@@ -47,7 +49,9 @@
         "wholesaleMin": "5 000",
         "rating": "3.5",
         "isAvaliable": true,
-        "numberOfBuying": 260
+        "numberOfBuying": 260,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 3,
@@ -72,7 +76,9 @@
         "wholesaleMin": "5 000",
         "rating": "4.7",
         "isAvaliable": true,
-        "numberOfBuying": 2360
+        "numberOfBuying": 2360,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 4,
@@ -97,7 +103,9 @@
         "wholesaleMin": "5 000",
         "rating": "4.7",
         "isAvaliable": false,
-        "numberOfBuying": 2360
+        "numberOfBuying": 2360,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 5,
@@ -122,7 +130,9 @@
         "wholesaleMin": "5 000",
         "rating": "4",
         "isAvaliable": true,
-        "numberOfBuying": 20360
+        "numberOfBuying": 20360,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 6,
@@ -147,7 +157,9 @@
         "wholesaleMin": "5 000",
         "rating": "2.7",
         "isAvaliable": true,
-        "numberOfBuying": 2560
+        "numberOfBuying": 2560,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 7,
@@ -172,7 +184,9 @@
         "wholesaleMin": "5 000",
         "rating": "4",
         "isAvaliable": true,
-        "numberOfBuying": 2360
+        "numberOfBuying": 2360,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     },
     {
         "id": 8,
@@ -197,6 +211,8 @@
         "wholesaleMin": "5 000",
         "rating": "3.3",
         "isAvaliable": true,
-        "numberOfBuying": 236660
+        "numberOfBuying": 236660,
+        "category": "cosmetic-bags",
+        "subcategory": "waterproof"
     }
 ]

@@ -7,7 +7,7 @@ class Main extends React.Component {
         return (
             <main>
                 <CatalogContainer />
-                <ListingContainer />
+                <ListingContainer funcUpdateLikes={this.props.funcUpdateLikes} />
             </main>
         );
     }

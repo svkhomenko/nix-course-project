@@ -73,7 +73,7 @@ class Catalog extends React.Component {
     constructor(props) {
         super(props);
 
-        this.catalog = require('./data/catalog.json') || [];
+        this.catalog = require('./data/catalog.json');
     }
 
     render() {

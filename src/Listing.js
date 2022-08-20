@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import ProductCard from "./ProductCard.js";
 
 class SortContainer extends React.Component {
@@ -86,79 +88,188 @@ class PageIndexContainer extends React.Component {
     }
 }
 
-class ListingContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            products: require('./data/products.json') || [],
-            sortIndex: 0,
-            maxProductsPerPage: 12,
-            currentPage: 1
-        };
+// class ListingContainer extends React.Component {
+//     constructor(props) {
+//         super(props);
 
-        this.sortFunctionsArray = [
-            this.sortByPopularity,
-            this.sortCheapFirst,
-            this.sortExpensiveFirst
-        ];
+//         this.state = {
+//             products: require('./data/products.json'),
+//             sortIndex: 0,
+//             maxProductsPerPage: 12,
+//             currentPage: 1
+//         };
 
-        this.sortProducts = this.sortProducts.bind(this);
-        this.changePage = this.changePage.bind(this);
+//         this.sortFunctionsArray = [
+//             this.sortByPopularity,
+//             this.sortCheapFirst,
+//             this.sortExpensiveFirst
+//         ];
+
+//         this.sortProducts = this.sortProducts.bind(this);
+//         this.changePage = this.changePage.bind(this);
+//     }
+
+//     componentDidMount() {
+//         console.log(this.props);
+//         // console.log(this.props.category, this.props.subcategory);
+
+//         this.sortProducts({target:{dataset:{sortIndex:0}}});
+//     }
+
+//     sortByPopularity(a, b) {
+//         return b.numberOfBuying - a.numberOfBuying;
+//     }
+
+//     sortCheapFirst(a, b) {
+//         return a.price - b.price;
+//     }
+
+//     sortExpensiveFirst(a, b) {
+//         return b.price - a.price;
+//     }
+
+//     sortProducts(event) {
+//         let index = event.target.dataset.sortIndex;
+//         this.setState((state) => ({
+//             products: state.products.sort(this.sortFunctionsArray[index]),
+//             sortIndex: index
+//         }));
+//     }
+
+//     changePage(event) {
+//         this.setState((state) => ({
+//             currentPage: event.target.dataset.pageIndex
+//         }));
+//     }
+
+//     render() {
+//         let begin = (this.state.currentPage - 1) * this.state.maxProductsPerPage;
+//         let end = begin + this.state.maxProductsPerPage;
+//         let products = this.state.products.slice(begin, end);
+
+//         return (
+//             <div className="listing_container">
+//                 <SortContainer funcSort={this.sortProducts}
+//                                 activeIndex={this.state.sortIndex}/>
+
+//                 <div className="listing">
+//                     {products.map((item) => {
+//                         return (
+//                             <ProductCard key={item.id}
+//                                             item={item}>
+//                             </ProductCard>
+//                         );
+//                     })}
+//                 </div>
+
+//                 <PageIndexContainer funcChangePage={this.changePage}
+//                                     currentPage={this.state.currentPage}
+//                                     numberOfPages={Math.ceil(this.state.products.length / this.state.maxProductsPerPage)}/>
+//             </div> 
+//         );
+//     }
+// }
+
+function ListingContainer(props) {
+    let { category, subcategory } = useParams();
+
+    const [sortIndex, setSortIndex] = useState(0);
+    const [maxProductsPerPage, setMaxProductsPerPage] = useState(12);
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    let sortFunctionsArray = [
+        sortByPopularity,
+        sortCheapFirst,
+        sortExpensiveFirst
+    ];
+    
+    const [products, setProducts] = useState(require('./data/products.json').sort(sortFunctionsArray[sortIndex]));
+    
+    useEffect(() => {
+        let tempProducts = require('./data/products.json').filter(urlFilter);
+        setProducts(tempProducts.sort(sortFunctionsArray[sortIndex]));
+    }, [category, subcategory]);
+
+    let begin = (currentPage - 1) * maxProductsPerPage;
+    let end = begin + maxProductsPerPage;
+    let curProducts = setLiked(products.slice(begin, end));
+
+    return (
+        <div className="listing_container">
+        {
+            products.length !== 0
+            ? <>
+                <SortContainer funcSort={sortProducts}
+                            activeIndex={sortIndex}/>
+
+                <div className="listing">
+                {curProducts.map((item) => {
+                    return (
+                        <ProductCard key={item.id}
+                            item={item}
+                            funcUpdateLikes={props.funcUpdateLikes}>
+                        </ProductCard>
+                    );
+                })}
+                </div>
+
+                <PageIndexContainer funcChangePage={changePage}
+                                currentPage={currentPage}
+                                numberOfPages={Math.ceil(products.length / maxProductsPerPage)}/>
+            </>
+            : <p>К сожалению, товары данной категории отсутствуют</p>
+        }
+        </div>
+    );
+
+    function urlFilter(product) {
+        if (category) {
+            if (product.category !== category) {
+                return false;
+            }
+            if (subcategory) {
+                if (product.subcategory !== subcategory) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    componentDidMount() {
-        this.sortProducts({target:{dataset:{sortIndex:0}}});
-    }
-
-    sortByPopularity(a, b) {
+    function sortByPopularity(a, b) {
         return b.numberOfBuying - a.numberOfBuying;
     }
 
-    sortCheapFirst(a, b) {
+    function sortCheapFirst(a, b) {
         return a.price - b.price;
     }
 
-    sortExpensiveFirst(a, b) {
+    function sortExpensiveFirst(a, b) {
         return b.price - a.price;
     }
 
-    sortProducts(event) {
+    function sortProducts(event) {
         let index = event.target.dataset.sortIndex;
-        this.setState((state) => ({
-            products: state.products.sort(this.sortFunctionsArray[index]),
-            sortIndex: index
-        }));
+        setProducts(products.sort(sortFunctionsArray[index]));
+        setSortIndex(index);
     }
 
-    changePage(event) {
-        this.setState((state) => ({
-            currentPage: event.target.dataset.pageIndex
-        }));
+    function changePage(event) {
+        setCurrentPage(event.target.dataset.pageIndex);
     }
 
-    render() {
-        let begin = (this.state.currentPage - 1) * this.state.maxProductsPerPage;
-        let end = begin + this.state.maxProductsPerPage;
-        let products = this.state.products.slice(begin, end);
-
-        return (
-            <div className="listing_container">
-                <SortContainer funcSort={this.sortProducts}
-                                activeIndex={this.state.sortIndex}/>
-
-                <div className="listing">
-                    {products.map((item) => (
-                        <ProductCard key={item.id}
-                                        item={item}>
-                        </ProductCard>
-                    ))}
-                </div>
-
-                <PageIndexContainer funcChangePage={this.changePage}
-                                    currentPage={this.state.currentPage}
-                                    numberOfPages={Math.ceil(this.state.products.length / this.state.maxProductsPerPage)}/>
-            </div> 
-        );
+    function setLiked(products) {
+        let liked = JSON.parse(localStorage.getItem('liked')) || [];
+        return products.map((product) => {
+            let temp = {...product};
+            if (liked.includes(temp.id)) {
+                temp.isLiked = true;
+            }
+            else {
+                temp.isLiked = false;
+            }
+            return temp;
+        });
     }
 }
 

@@ -59,7 +59,7 @@ main {
 
 .page_index_container {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     font-size: 10px;
 }

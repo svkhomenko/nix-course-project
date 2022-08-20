@@ -5,7 +5,7 @@ class NavMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.navMenuItems = require('./data/navMenu.json') || [];
+        this.navMenuItems = require('./data/navMenu.json');
     }
 
     render() {
@@ -82,7 +82,7 @@ class CatalogHorizontal extends React.Component {
     constructor(props) {
         super(props);
 
-        this.catalogHorizontalItems = require('./data/catalogHorizontal.json') || [];
+        this.catalogHorizontalItems = require('./data/catalogHorizontal.json');
     }
 
     render() {
@@ -104,7 +104,7 @@ class BreadcrumbsContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.breadcrumbs = require('./data/breadcrumbs.json') || [];
+        this.breadcrumbs = require('./data/breadcrumbs.json');
     }
 
     render() {

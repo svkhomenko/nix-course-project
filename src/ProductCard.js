@@ -44,7 +44,7 @@ class ProductCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLiked: false,
+            isLiked: this.props.item.isLiked,
             productNumber: 1
         };
 
@@ -53,6 +53,14 @@ class ProductCard extends React.Component {
         this.productNumberUp = this.productNumberUp.bind(this);
         this.productNumberDown = this.productNumberDown.bind(this);
         this.addToCart = this.addToCart.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.item.isLiked != this.props.item.isLiked) {
+            this.setState((state, props) => ({
+                isLiked: props.item.isLiked
+            }));
+        }
     }
 
     linkClick(event) {
@@ -66,6 +74,21 @@ class ProductCard extends React.Component {
         this.setState((state) => ({
             isLiked: !state.isLiked
         }));
+
+        let id = this.props.item.id;
+        let liked = JSON.parse(localStorage.getItem('liked')) || [];
+        let likedIndex = liked.indexOf(id);
+
+        if (likedIndex !== -1) {
+            liked.splice(likedIndex, 1);
+        }
+        else {
+            liked.push(id);
+        }
+
+        localStorage.setItem('liked', JSON.stringify(liked));
+
+        this.props.funcUpdateLikes();
     }
 
     productNumberUp(event) {
