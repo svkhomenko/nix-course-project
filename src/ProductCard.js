@@ -45,7 +45,8 @@ class ProductCard extends React.Component {
         super(props);
         this.state = {
             isLiked: this.props.item.isLiked,
-            productNumber: 1
+            productNumber: 1,
+            isInCart: this.props.item.isInCart
         };
 
         this.linkClick = this.linkClick.bind(this);
@@ -56,9 +57,14 @@ class ProductCard extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.item.isLiked != this.props.item.isLiked) {
+        if (prevProps.item.isLiked !== this.props.item.isLiked) {
             this.setState((state, props) => ({
                 isLiked: props.item.isLiked
+            }));
+        }
+        if (prevProps.item.isInCart !== this.props.item.isInCart) {
+            this.setState((state, props) => ({
+                isInCart: props.item.isInCart
             }));
         }
     }
@@ -113,8 +119,20 @@ class ProductCard extends React.Component {
 
     addToCart(event) {
         event.prevent = true;
+        this.setState((state) => ({
+            isInCart: true
+        }));
+
+        let id = this.props.item.id;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        for (let i = 0; i < this.state.productNumber; i++) {
+            cart.push(id);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        this.props.funcUpdateCart();
     }
-    
+
     render() {
         let item = this.props.item;
 
@@ -134,14 +152,35 @@ class ProductCard extends React.Component {
             );
         }
 
+        let InCartBtn = null;
+        if (item.isAvaliable) {
+            InCartBtn = (
+                <button onClick={this.addToCart} 
+                    className={'product_cart_add_btn button' 
+                                + (this.state.isInCart ? " negative" : "")} >
+                {this.state.isInCart ? "В корзине" : "В корзину"} 
+                </button> 
+            );
+        }
+        else {
+            InCartBtn = (
+                <button onClick={this.addToCart} 
+                    className={'product_cart_add_btn button' 
+                                + (this.state.isInCart ? " negative" : "")}
+                    style={{width: "100%"}}>
+                {this.state.isInCart ? "В листе ожидания" : "В лист ожидания"}
+                </button> 
+            );
+        }
+
         return (
             <Link to={'/product/' + item.id} onClick={this.linkClick} className={item.isAvaliable ? 'product_card' : 'product_card not_avaliable'}>
                 <div className="product_img_outer">
-                    <img className="product_img" src={require("./images/" + item.img)} alt="Product image" />
+                    <img className="product_img" src={require("./images/" + item.img)} alt="Product" />
                     {likeBtn}
                 </div>
                 <div className="product_title">
-                    {item.title}
+                    {item.title}{' '}{item.id}{' '}{item.numberOfBuying}
                 </div>
                 <div className="product_colors">
                     {item.colors.map((color) => ( 
@@ -164,11 +203,7 @@ class ProductCard extends React.Component {
                     : <RatingContainer rating={item.rating}/>}
                 </div>
                 <div className="product_cart_add_outer">
-                    <button onClick={this.addToCart} 
-                        className='product_cart_add_btn button'
-                        style={item.isAvaliable ? {} : {width: "100%"}}>
-                    {item.isAvaliable ? "В корзину" : "В лист ожидания"}
-                    </button>
+                    {InCartBtn}
                     {item.isAvaliable && <RatingContainer rating={item.rating}/>}
                 </div>
             </Link>

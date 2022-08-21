@@ -22,7 +22,7 @@
         "wholesaleMin": "5 000",
         "rating": "4.7",
         "isAvaliable": true,
-        "numberOfBuying": 2360,
+        "numberOfBuying": 2760,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
@@ -56,7 +56,7 @@
     {
         "id": 3,
         "img": "product1.png",
-        "title": "Косметичка непромокаемая, 31/22/11 см",
+        "title": "new Косметичка непромокаемая, 31/22/11 см",
         "colors": [
             {
                 "id": 1,
@@ -103,7 +103,7 @@
         "wholesaleMin": "5 000",
         "rating": "4.7",
         "isAvaliable": false,
-        "numberOfBuying": 2360,
+        "numberOfBuying": 2560,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
@@ -157,7 +157,7 @@
         "wholesaleMin": "5 000",
         "rating": "2.7",
         "isAvaliable": true,
-        "numberOfBuying": 2560,
+        "numberOfBuying": 2860,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
@@ -184,7 +184,7 @@
         "wholesaleMin": "5 000",
         "rating": "4",
         "isAvaliable": true,
-        "numberOfBuying": 2360,
+        "numberOfBuying": 23460,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },

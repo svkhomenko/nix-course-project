@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 class NavMenu extends React.Component {
@@ -23,40 +23,69 @@ class NavMenu extends React.Component {
     }
 }
 
-class Intro extends React.Component {
-    render() {
-        return (
-            <div className="intro">
-                <a href="/" className="logo_container">
-                    <div className="logo_outer">
-                        <img src={require("./images/logo.png")} alt="logo" />
-                    </div>
-                    <div className="logo_subtext">вместе дешеле.org</div>
-                </a>
-                
-                <div className="intro_telephone_outer">
-                    <span className="iconify" data-icon="carbon:phone-filled"></span>
-                    <a href="tel: +19688905556">+1 (968) 890 55 56</a>
-                </div>
-                
-                <h1>Интернет-магазин с бесплатной доставкой</h1>
+function Intro(props) {
+    const [likesNumber, setLikesNumber] = useState(getLikedNumber());
+    const [cartNumber, setCartNumber] = useState(getCartNumber());
 
-                <div className="intro_btns_container">
-                    <div className="intro_btns_outer">
-                        <span className="iconify" data-icon="bi:person-fill"></span>
-                        <div className="intro_btn_subtext">Войти</div>
-                    </div>
-                    <div className="intro_btns_outer">
-                        <span className="iconify" data-icon="ant-design:heart-filled"></span>
-                        <div className="intro_btn_subtext intro_likes">0</div>
-                    </div>
-                    <div className="intro_btns_outer">
-                        <span className="iconify" data-icon="ps:shopping-cart"></span>
-                        <div className="intro_btn_subtext intro_cart">1234</div>
-                    </div>
+    useEffect(() => {
+        setLikesNumber(getLikedNumber());
+    }, [props.updateLikesProp]);
+
+    useEffect(() => {
+        setCartNumber(getCartNumber());
+    }, [props.updateCartProp]);
+
+    return (
+        <div className="intro">
+            <a href="/" className="logo_container">
+                <div className="logo_outer">
+                    <img src={require("./images/logo.png")} alt="logo" />
+                </div>
+                <div className="logo_subtext">вместе дешеле.org</div>
+            </a>
+            
+            <div className="intro_telephone_outer">
+                <span className="iconify" data-icon="carbon:phone-filled"></span>
+                <a href="tel: +19688905556">+1 (968) 890 55 56</a>
+            </div>
+            
+            <h1>Интернет-магазин с бесплатной доставкой</h1>
+
+            <div className="intro_btns_container">
+                <div className="intro_btns_outer">
+                    <span className="iconify" data-icon="bi:person-fill"></span>
+                    <div className="intro_btn_subtext">Войти</div>
+                </div>
+                <div className="intro_btns_outer">
+                    <span className="iconify" data-icon="ant-design:heart-filled"></span>
+                    <div className="intro_btn_subtext intro_likes">{likesNumber}</div>
+                </div>
+                <div className="intro_btns_outer" onClick={remove}>
+                    <span className="iconify" data-icon="ps:shopping-cart"></span>
+                    <div className="intro_btn_subtext intro_cart">{cartNumber}</div>
                 </div>
             </div>
-        );
+        </div>
+    );
+
+    function getLikedNumber() {
+        let liked = JSON.parse(localStorage.getItem('liked')) || [];
+        return liked.length;
+    }
+
+    function getCartNumber() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let products = require('./data/products.json');
+
+        return cart.reduce((prevValue, curValue) => {
+            let product = products.find(pr => pr.id == curValue);
+            return prevValue + +product.price; 
+        }, 0);
+    }
+
+    function remove() {
+        localStorage.setItem('cart', JSON.stringify([]));
+        console.log(localStorage.getItem('cart'));
     }
 }
 
@@ -64,14 +93,14 @@ class SearchContainer extends React.Component {
     render() {
         return (
             <div className="search_container">
-                <button className="catalog_btn button">
+                <button className="catalog_btn button" onClick={this.props.funcToggleCatalog}>
                     <span className="iconify" data-icon="bx:menu-alt-right"></span>
                     каталог
                 </button>
 
-                <form>
+                <form action="/">
                     <input className="search_input" type="search" name="search" placeholder="Введите что вам нужно" />
-                    <button className="search_btn button">Поиск</button>
+                    <button className="search_btn button" type="submit">Поиск</button>
                 </form>
             </div>
         );
@@ -127,13 +156,14 @@ class Header extends React.Component {
         return (
             <header>
                 <NavMenu />
-                <Intro />
-                <SearchContainer />
+                <Intro updateLikesProp={this.props.updateLikesProp}
+                        updateCartProp={this.props.updateCartProp} />
+                <SearchContainer funcToggleCatalog={this.props.funcToggleCatalog} />
                 <CatalogHorizontal />
                 <BreadcrumbsContainer />
             </header>
         );
     }
-} 
+}
 
 export default Header;

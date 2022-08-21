@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import ProductCard from "./ProductCard.js";
+import { setFromCart, setLiked} from "./tools.js";
 
 class SortContainer extends React.Component {
     render() {
@@ -88,90 +89,11 @@ class PageIndexContainer extends React.Component {
     }
 }
 
-// class ListingContainer extends React.Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//             products: require('./data/products.json'),
-//             sortIndex: 0,
-//             maxProductsPerPage: 12,
-//             currentPage: 1
-//         };
-
-//         this.sortFunctionsArray = [
-//             this.sortByPopularity,
-//             this.sortCheapFirst,
-//             this.sortExpensiveFirst
-//         ];
-
-//         this.sortProducts = this.sortProducts.bind(this);
-//         this.changePage = this.changePage.bind(this);
-//     }
-
-//     componentDidMount() {
-//         console.log(this.props);
-//         // console.log(this.props.category, this.props.subcategory);
-
-//         this.sortProducts({target:{dataset:{sortIndex:0}}});
-//     }
-
-//     sortByPopularity(a, b) {
-//         return b.numberOfBuying - a.numberOfBuying;
-//     }
-
-//     sortCheapFirst(a, b) {
-//         return a.price - b.price;
-//     }
-
-//     sortExpensiveFirst(a, b) {
-//         return b.price - a.price;
-//     }
-
-//     sortProducts(event) {
-//         let index = event.target.dataset.sortIndex;
-//         this.setState((state) => ({
-//             products: state.products.sort(this.sortFunctionsArray[index]),
-//             sortIndex: index
-//         }));
-//     }
-
-//     changePage(event) {
-//         this.setState((state) => ({
-//             currentPage: event.target.dataset.pageIndex
-//         }));
-//     }
-
-//     render() {
-//         let begin = (this.state.currentPage - 1) * this.state.maxProductsPerPage;
-//         let end = begin + this.state.maxProductsPerPage;
-//         let products = this.state.products.slice(begin, end);
-
-//         return (
-//             <div className="listing_container">
-//                 <SortContainer funcSort={this.sortProducts}
-//                                 activeIndex={this.state.sortIndex}/>
-
-//                 <div className="listing">
-//                     {products.map((item) => {
-//                         return (
-//                             <ProductCard key={item.id}
-//                                             item={item}>
-//                             </ProductCard>
-//                         );
-//                     })}
-//                 </div>
-
-//                 <PageIndexContainer funcChangePage={this.changePage}
-//                                     currentPage={this.state.currentPage}
-//                                     numberOfPages={Math.ceil(this.state.products.length / this.state.maxProductsPerPage)}/>
-//             </div> 
-//         );
-//     }
-// }
-
 function ListingContainer(props) {
     let { category, subcategory } = useParams();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    let search = searchParams.get('search') || '';
 
     const [sortIndex, setSortIndex] = useState(0);
     const [maxProductsPerPage, setMaxProductsPerPage] = useState(12);
@@ -186,13 +108,19 @@ function ListingContainer(props) {
     const [products, setProducts] = useState(require('./data/products.json').sort(sortFunctionsArray[sortIndex]));
     
     useEffect(() => {
-        let tempProducts = require('./data/products.json').filter(urlFilter);
-        setProducts(tempProducts.sort(sortFunctionsArray[sortIndex]));
-    }, [category, subcategory]);
+        let tempProducts = require('./data/products.json');
+        if (category || subcategory) {
+            tempProducts = tempProducts.filter(urlFilter);
+        }
+        if (search) {
+            tempProducts = tempProducts.filter(searchFilter);
+        }
+        setProducts(setFromCart(setLiked(tempProducts.sort(sortFunctionsArray[sortIndex]))));
+    }, [category, subcategory, search]);
 
     let begin = (currentPage - 1) * maxProductsPerPage;
     let end = begin + maxProductsPerPage;
-    let curProducts = setLiked(products.slice(begin, end));
+    let curProducts = setFromCart(setLiked(products.slice(begin, end)));
 
     return (
         <div className="listing_container">
@@ -207,8 +135,8 @@ function ListingContainer(props) {
                     return (
                         <ProductCard key={item.id}
                             item={item}
-                            funcUpdateLikes={props.funcUpdateLikes}>
-                        </ProductCard>
+                            funcUpdateLikes={props.funcUpdateLikes}
+                            funcUpdateCart={props.funcUpdateCart} />
                     );
                 })}
                 </div>
@@ -221,6 +149,11 @@ function ListingContainer(props) {
         }
         </div>
     );
+
+    function searchFilter(product) {
+        let productData = product.title + ' ' + product.category + ' ' + product.subcategory;
+        return productData.toLowerCase().includes(search.toLowerCase());
+    }
 
     function urlFilter(product) {
         if (category) {
@@ -256,20 +189,6 @@ function ListingContainer(props) {
 
     function changePage(event) {
         setCurrentPage(event.target.dataset.pageIndex);
-    }
-
-    function setLiked(products) {
-        let liked = JSON.parse(localStorage.getItem('liked')) || [];
-        return products.map((product) => {
-            let temp = {...product};
-            if (liked.includes(temp.id)) {
-                temp.isLiked = true;
-            }
-            else {
-                temp.isLiked = false;
-            }
-            return temp;
-        });
     }
 }
 
