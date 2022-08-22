@@ -25,3 +25,7 @@ export function setFromCart(products) {
         return temp;
     });
 }
+
+export function getNumberWithSeparator(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}

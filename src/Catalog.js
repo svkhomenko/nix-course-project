@@ -89,13 +89,41 @@ class Catalog extends React.Component {
 }
 
 class CatalogContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        if (this.props.isMainPage && !this.props.isCatalogOpen) {
+            this.props.funcToggleCatalog();
+        }
+        if (!this.props.isMainPage && this.props.isCatalogOpen) {
+            this.props.funcToggleCatalog();
+        }
+    }
+
+    getTopforAbsolute() {
+        if (document.readyState === "complete") {
+            let btn = document.querySelector('.catalog_btn');
+            return btn.getBoundingClientRect().bottom + window.pageYOffset + 'px';
+        }
+        else {
+            return "170px";
+        }
+    }
+
     render() {
-        return (
-            <div className="catalog_container">
-                <h2 className="catalog_title">каталог</h2>
-                <Catalog />
-            </div>
-        );
+        if (this.props.isCatalogOpen) {
+            return (
+                <div className={this.props.isMainPage 
+                                ? "catalog_container"
+                                : "catalog_container absolute"}
+                        style={this.props.isMainPage 
+                            ? {}
+                            : {top: this.getTopforAbsolute()}}>
+                    <h2 className="catalog_title">каталог</h2>
+                    <Catalog />
+                </div>
+            );
+        }
     }
 }
 

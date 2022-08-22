@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { getNumberWithSeparator } from "./tools.js";
+
 class RatingContainer extends React.Component {
     getRatingForStar() {
         let rating = 100 * this.props.rating / 5;
@@ -191,12 +193,12 @@ class ProductCard extends React.Component {
                 </div>
                 <div className="product_values">
                     <div>
-                        <div className="product_price">{item.price}</div>
+                        <div className="product_price">{getNumberWithSeparator(item.price)}</div>
                         цена
                     </div>
                     <div className="product_wholesale_outer">
-                        <div className="product_wholesale">{item.wholesale}</div>
-                        опт от <span className="product_wholesale_min">{item.wholesaleMin}</span>
+                        <div className="product_wholesale">{getNumberWithSeparator(item.wholesale)}</div>
+                        опт от <span className="product_wholesale_min">{getNumberWithSeparator(item.wholesaleMin)}</span>
                     </div>
                     {item.isAvaliable 
                     ? <ProductNumberOuter funcDown={this.productNumberDown} number={this.state.productNumber} funcUp={this.productNumberUp}/> 

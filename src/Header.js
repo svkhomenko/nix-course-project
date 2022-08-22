@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 class NavMenu extends React.Component {
     constructor(props) {
@@ -77,10 +78,23 @@ function Intro(props) {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let products = require('./data/products.json');
 
-        return cart.reduce((prevValue, curValue) => {
+        let totalCost = cart.reduce((prevValue, curValue) => {
             let product = products.find(pr => pr.id == curValue);
             return prevValue + +product.price; 
         }, 0);
+
+        let reducedCost = cart.reduce((prevValue, curValue) => {
+            let product = products.find(pr => pr.id == curValue);
+
+            if (product.wholesaleMin <= totalCost) {
+                return prevValue + +product.wholesale; 
+            }
+            else {
+                return prevValue + +product.price; 
+            }
+        }, 0);
+
+        return reducedCost;
     }
 
     function remove() {
@@ -89,21 +103,30 @@ function Intro(props) {
     }
 }
 
-class SearchContainer extends React.Component {
-    render() {
-        return (
-            <div className="search_container">
-                <button className="catalog_btn button" onClick={this.props.funcToggleCatalog}>
-                    <span className="iconify" data-icon="bx:menu-alt-right"></span>
-                    каталог
-                </button>
+function SearchContainer(props) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [search, setSearch] = useState(searchParams.get('search') || '');
 
-                <form action="/">
-                    <input className="search_input" type="search" name="search" placeholder="Введите что вам нужно" />
-                    <button className="search_btn button" type="submit">Поиск</button>
-                </form>
-            </div>
-        );
+    useEffect(() => {
+        setSearch(searchParams.get('search') || '');
+    }, [searchParams]);
+
+    return (
+        <div className="search_container">
+            <button className="catalog_btn button" onClick={props.funcToggleCatalog}>
+                <span className="iconify" data-icon="bx:menu-alt-right"></span>
+                каталог
+            </button>
+
+            <form action="/">
+                <input className="search_input" value={search} onChange={handleChange} type="search" name="search" placeholder="Введите что вам нужно" />
+                <button className="search_btn button" type="submit">Поиск</button>
+            </form>
+        </div>
+    );
+
+    function handleChange(event) {
+        setSearch(event.target.value);
     }
 }
 

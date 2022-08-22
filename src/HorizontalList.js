@@ -47,34 +47,28 @@ export function Recommended(props) {
     }
 }
 
-export class RecentlyWatched extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            products: []
-        };
+export function RecentlyWatched(props) {
+    const [products, setProducts] = useState(getProducts());
 
-        // localStorage.setItem('recentlyWatched', JSON.stringify([]));
-    }
+    useEffect(() => {
+        setProducts(getProducts());
+    }, [props.updateLikesProp, props.updateCartProp, props.updateRecentlyWatchedProp]);
 
-    componentDidMount() {
+    return (
+        <>
+            {products.length != 0 &&
+            <HorizontalListContainer title="Недавно просмотренные"
+                products={products}
+                funcUpdateLikes={props.funcUpdateLikes}
+                funcUpdateCart={props.funcUpdateCart} />}
+        </>
+    );
+
+    function getProducts() {
         let idArr = JSON.parse(localStorage.getItem('recentlyWatched')) || [];
         let allProducts = require('./data/products.json');
 
-        this.setState((state) => ({
-            products: allProducts.filter(product => idArr.find(id => id == product.id))
-        }));
-    }
-
-    render() {
-        let products = this.state.products;
-
-        return (
-            <>
-                {products.length != 0 &&
-                <HorizontalListContainer title="Недавно просмотренные"
-                    products={products}/>}
-            </>
-        );
+        return setFromCart(setLiked(allProducts.filter(product => idArr.find(id => id == product.id))
+                                                .sort((a, b) => idArr.findIndex(id => id == b.id) - idArr.findIndex(id => id == a.id))));
     }
 }
