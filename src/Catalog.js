@@ -100,9 +100,10 @@ class CatalogContainer extends React.Component {
         }
     }
 
-    getTopforAbsolute() {
-        if (document.readyState === "complete") {
-            let btn = document.querySelector('.catalog_btn');
+    getTopForAbsolute() {
+        let btn = document.querySelector('.catalog_btn');
+
+        if (btn) {
             return btn.getBoundingClientRect().bottom + window.pageYOffset + 'px';
         }
         else {
@@ -118,7 +119,7 @@ class CatalogContainer extends React.Component {
                                 : "catalog_container absolute"}
                         style={this.props.isMainPage 
                             ? {}
-                            : {top: this.getTopforAbsolute()}}>
+                            : {top: this.getTopForAbsolute()}}>
                     <h2 className="catalog_title">каталог</h2>
                     <Catalog />
                 </div>

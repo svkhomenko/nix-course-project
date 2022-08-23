@@ -1,216 +1,463 @@
 [
     {
         "id": 1,
-        "img": "product1.png",
+        "sku": 123456789,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product1.png",
+                "color": "#ffffff",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product4.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true 
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product1.png",
+                "color": "#000000",
+                "isAvaliable": true
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 3,
+                "size": "25/20/9 см", 
+                "isAvaliable": false
             }
         ],
         "price": "123",
         "wholesale": "103",
         "wholesaleMin": "2000",
         "rating": "4.7",
-        "isAvaliable": true,
         "numberOfBuying": 2760,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 2,
-        "img": "product2.png",
+        "sku": 213456789,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product2.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product3.png",
+                "color": "#A4DEFF",
+                "isAvaliable": true
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product3.png",
+                "color": "#000000",
+                "isAvaliable": true
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 3,
+                "size": "25/20/9 см", 
+                "isAvaliable": true
             }
         ],
         "price": "1023",
         "wholesale": "990",
         "wholesaleMin": "10000",
         "rating": "3.5",
-        "isAvaliable": true,
         "numberOfBuying": 260,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 3,
-        "img": "product1.png",
+        "sku": 563456789,
         "title": "new Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product1.png",
+                "color": "#ffffff",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product4.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product1.png",
+                "color": "#000000",
+                "isAvaliable": false
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 3,
+                "size": "25/20/9 см", 
+                "isAvaliable": false
             }
         ],
         "price": "123",
         "wholesale": "103",
         "wholesaleMin": "1000",
         "rating": "4.7",
-        "isAvaliable": true,
         "numberOfBuying": 2360,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 4,
-        "img": "product1.png",
+        "sku": 128456789,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product1.png",
+                "color": "#ffffff",
+                "isAvaliable": false
+            },
+            {
+                "id": 2,
+                "img": "product4.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product1.png",
+                "color": "#000000",
+                "isAvaliable": true
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
             }
         ],
         "price": "123",
         "wholesale": "103",
         "wholesaleMin": "1000",
         "rating": "4.7",
-        "isAvaliable": false,
         "numberOfBuying": 2560,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 5,
-        "img": "product3.png",
+        "sku": 183456799,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product3.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product3.png",
+                "color": "#000000",
+                "isAvaliable": true
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product2.png",
+                "color": "#A4DEFF",
+                "isAvaliable": false
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "25/20/9 см", 
+                "isAvaliable": false
             }
         ],
         "price": "13",
         "wholesale": "10",
         "wholesaleMin": "200",
         "rating": "4",
-        "isAvaliable": true,
         "numberOfBuying": 20360,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 6,
-        "img": "product4.png",
+        "sku": 123006789,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product4.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product1.png",
+                "color": "#ffffff",
+                "isAvaliable": false
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product1.png",
+                "color": "#000000",
+                "isAvaliable": true
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 3,
+                "size": "25/20/9 см", 
+                "isAvaliable": false
             }
         ],
         "price": "1203",
         "wholesale": "1000",
         "wholesaleMin": "5000",
         "rating": "2.7",
-        "isAvaliable": true,
         "numberOfBuying": 2860,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 7,
-        "img": "product1.png",
+        "sku": 527456789,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product4.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product1.png",
+                "color": "#ffffff",
+                "isAvaliable": true
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product4.png",
+                "color": "#000000",
+                "isAvaliable": false
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
             }
         ],
         "price": "12003",
         "wholesale": "11800",
         "wholesaleMin": "50000",
         "rating": "4",
-        "isAvaliable": true,
         "numberOfBuying": 23460,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"
     },
     {
         "id": 8,
-        "img": "product2.png",
+        "sku": 123956889,
         "title": "Косметичка непромокаемая, 31/22/11 см",
-        "colors": [
+        "additionalImages": [
             {
                 "id": 1,
-                "color": "#ffffff"
+                "img": "additional1.png"
             },
             {
                 "id": 2,
-                "color": "#ffc0cb"
+                "img": "additional2.png"
+            }
+        ],
+        "colors": [
+            {
+                "id": 1,
+                "img": "product2.png",
+                "color": "#ffc0cb",
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "img": "product3.png",
+                "color": "#ffffff",
+                "isAvaliable": false
             },
             {
                 "id": 3,
-                "color": "#000000"
+                "img": "product3.png",
+                "color": "#000000",
+                "isAvaliable": true
+            },
+            {
+                "id": 4,
+                "img": "product2.png",
+                "color": "#A4DEFF",
+                "isAvaliable": false
+            }
+        ],
+        "size": [
+            {
+                "id": 1,
+                "size": "31/22/11 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 2,
+                "size": "20/18/6 см", 
+                "isAvaliable": true
+            },
+            {
+                "id": 3,
+                "size": "25/20/9 см", 
+                "isAvaliable": true
             }
         ],
         "price": "1323",
         "wholesale": "1200",
         "wholesaleMin": "8000",
         "rating": "3.3",
-        "isAvaliable": true,
         "numberOfBuying": 236660,
         "category": "cosmetic-bags",
         "subcategory": "waterproof"

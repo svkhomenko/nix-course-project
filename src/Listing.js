@@ -116,6 +116,8 @@ function ListingContainer(props) {
             tempProducts = tempProducts.filter(searchFilter);
         }
         setProducts(setFromCart(setLiked(tempProducts.sort(sortFunctionsArray[sortIndex]))));
+
+        addPrevMainPage();
     }, [category, subcategory, search]);
 
     let begin = (currentPage - 1) * maxProductsPerPage;
@@ -151,7 +153,7 @@ function ListingContainer(props) {
     );
 
     function searchFilter(product) {
-        let productData = product.title + ' ' + product.category + ' ' + product.subcategory;
+        let productData = product.title + ' ' + product.category + ' ' + product.subcategory + ' ' + product.sku;
         return productData.toLowerCase().includes(search.toLowerCase());
     }
 
@@ -189,6 +191,12 @@ function ListingContainer(props) {
 
     function changePage(event) {
         setCurrentPage(event.target.dataset.pageIndex);
+    }
+
+    function addPrevMainPage() {
+        let href = JSON.parse(localStorage.getItem('prevMainPage'));
+        href.href = window.location.href;
+        localStorage.setItem('prevMainPage', JSON.stringify(href));
     }
 }
 

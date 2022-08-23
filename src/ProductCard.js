@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getNumberWithSeparator } from "./tools.js";
 
-class RatingContainer extends React.Component {
+export class Rating extends React.Component {
     getRatingForStar() {
         let rating = 100 * this.props.rating / 5;
         return 100 - rating;
@@ -11,12 +11,20 @@ class RatingContainer extends React.Component {
 
     render() {
         return (
+            <div className="rating_fill">
+                <div className="rating" style={{height: this.getRatingForStar() + '%'}}></div>
+                <div className="rating_empty"></div>
+            </div>
+        );
+    }
+}
+
+class RatingContainer extends React.Component {
+    render() {
+        return (
             <div className="rating_container">
                 <span className="rating_number">{this.props.rating}</span>
-                <div className="rating_fill">
-                    <div className="rating" style={{height: this.getRatingForStar() + '%'}}></div>
-                    <div className="rating_empty"></div>
-                </div>
+                <Rating rating={this.props.rating} />
             </div>
         );
     }
@@ -155,7 +163,7 @@ class ProductCard extends React.Component {
         }
 
         let InCartBtn = null;
-        if (item.isAvaliable) {
+        if (item.colors[0].isAvaliable) {
             InCartBtn = (
                 <button onClick={this.addToCart} 
                     className={'product_cart_add_btn button' 
@@ -176,9 +184,9 @@ class ProductCard extends React.Component {
         }
 
         return (
-            <Link to={'/product/' + item.id} onClick={this.linkClick} className={item.isAvaliable ? 'product_card' : 'product_card not_avaliable'}>
+            <Link to={'/product/' + item.id} onClick={this.linkClick} className={item.colors[0].isAvaliable ? 'product_card' : 'product_card not_avaliable'}>
                 <div className="product_img_outer">
-                    <img className="product_img" src={require("./images/" + item.img)} alt="Product" />
+                    <img className="product_img" src={require("./images/" + item.colors[0].img)} alt="Product" />
                     {likeBtn}
                 </div>
                 <div className="product_title">
@@ -200,13 +208,13 @@ class ProductCard extends React.Component {
                         <div className="product_wholesale">{getNumberWithSeparator(item.wholesale)}</div>
                         опт от <span className="product_wholesale_min">{getNumberWithSeparator(item.wholesaleMin)}</span>
                     </div>
-                    {item.isAvaliable 
+                    {item.colors[0].isAvaliable 
                     ? <ProductNumberOuter funcDown={this.productNumberDown} number={this.state.productNumber} funcUp={this.productNumberUp}/> 
                     : <RatingContainer rating={item.rating}/>}
                 </div>
                 <div className="product_cart_add_outer">
                     {InCartBtn}
-                    {item.isAvaliable && <RatingContainer rating={item.rating}/>}
+                    {item.colors[0].isAvaliable && <RatingContainer rating={item.rating}/>}
                 </div>
             </Link>
         );

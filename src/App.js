@@ -1,34 +1,3 @@
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// import MainPage from './MainPage.js';
-
-// function App() {
-//     return (
-//         <Router>
-//             <Routes>
-//                 <Route path="/*" element={<MainPage />} />
-//                 <Route path="/:category" element={<MainPage />} />
-//                 <Route path="/:category/:subcategory" element={<MainPage />} />
-
-//                 {["/about-us", "/wholesale", "/payment-and-delivery", "/blog", "/contacts", "/sitemap"]
-//                     .map((path, index) => 
-//                         <Route path={path} element={<MainPage />} key={index} />
-//                 )}
-
-//                 {/* <Route exact path="/page" element={<Page />} /> */}
-//             </Routes>
-//         </Router>
-//     );
-// }
-
-// function App() {
-//     return (
-//         <MainPage />
-//     );
-// }
-
-
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -39,6 +8,7 @@ import ProductPage from './ProductPage.js';
 import { Recommended, RecentlyWatched } from "./HorizontalList.js";
 import Footer from "./Footer.js";
 import "./styles/main.css";
+import "./styles/product.css";
 
 class App extends React.Component {
     constructor(props) {
@@ -122,7 +92,9 @@ class App extends React.Component {
                                 <CatalogContainer funcToggleCatalog={this.toggleCatalog}
                                                 isCatalogOpen={this.state.isCatalogOpen}
                                                 isMainPage={false} />
-                                <ProductPage funcUpdateRecentlyWatched={this.updateRecentlyWatched}/>
+                                <ProductPage funcUpdateRecentlyWatched={this.updateRecentlyWatched}
+                                                funcUpdateLikes={this.updateLikes}
+                                                updateLikesProp={this.state.updateLikesProp} />
                             </>
                         } />
                     </Routes>
