@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Header from "./Header.js";
+import Header, { BreadcrumbsContainer } from "./Header.js";
 import CatalogContainer from './Catalog.js';
 import ListingContainer from './Listing.js';
 import ProductPage from './ProductPage.js';
@@ -63,15 +63,18 @@ class App extends React.Component {
                         {["/", "/:category", "/:category/:subcategory"]
                             .map((path, index) => 
                                 <Route path={path} key={index} element={
-                                    <main>
-                                        <CatalogContainer funcToggleCatalog={this.toggleCatalog}
-                                                isCatalogOpen={this.state.isCatalogOpen}
-                                                isMainPage={true} />
-                                        <ListingContainer funcUpdateLikes={this.updateLikes} 
-                                                        funcUpdateCart={this.updateCart} 
-                                                        updateLikesProp={this.state.updateLikesProp}
-                                                        updateCartProp={this.state.updateCartProp} />
-                                    </main> 
+                                    <>
+                                        <BreadcrumbsContainer path={path} />
+                                        <main>
+                                            <CatalogContainer funcToggleCatalog={this.toggleCatalog}
+                                                    isCatalogOpen={this.state.isCatalogOpen}
+                                                    isMainPage={true} />
+                                            <ListingContainer funcUpdateLikes={this.updateLikes} 
+                                                            funcUpdateCart={this.updateCart} 
+                                                            updateLikesProp={this.state.updateLikesProp}
+                                                            updateCartProp={this.state.updateCartProp} />
+                                        </main> 
+                                    </>
                                 } />
                         )}
 
@@ -79,6 +82,7 @@ class App extends React.Component {
                             .map((path, index) => 
                                 <Route path={path} key={index} element={
                                     <>
+                                        <BreadcrumbsContainer path={path} />
                                         <CatalogContainer funcToggleCatalog={this.toggleCatalog}
                                                 isCatalogOpen={this.state.isCatalogOpen}
                                                 isMainPage={false} />
@@ -89,12 +93,15 @@ class App extends React.Component {
 
                         <Route path="/product/:id" element={
                             <>
+                                <BreadcrumbsContainer path={"/product/:id"} />
                                 <CatalogContainer funcToggleCatalog={this.toggleCatalog}
                                                 isCatalogOpen={this.state.isCatalogOpen}
                                                 isMainPage={false} />
                                 <ProductPage funcUpdateRecentlyWatched={this.updateRecentlyWatched}
                                                 funcUpdateLikes={this.updateLikes}
-                                                updateLikesProp={this.state.updateLikesProp} />
+                                                funcUpdateCart={this.updateCart}
+                                                updateLikesProp={this.state.updateLikesProp}
+                                                updateCartProp={this.state.updateCartProp} />
                             </>
                         } />
                     </Routes>

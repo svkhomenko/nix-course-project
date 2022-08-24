@@ -16,7 +16,8 @@ export function setFromCart(products) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     return products.map((product) => {
         let temp = {...product};
-        if (cart.includes(temp.id)) {
+        let prInCart = cart.find(pr => pr.id == temp.id);
+        if (prInCart) {
             temp.isInCart = true;
         }
         else {
@@ -28,4 +29,24 @@ export function setFromCart(products) {
 
 export function getNumberWithSeparator(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+export function addProductToCard(id, number, colorId = 1, sizeId = 1, productPackage = "without") {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    let product = cart.find(pr => pr.id == id && pr.colorId == colorId && pr.sizeId == sizeId && pr.productPackage == productPackage);
+    if (product) {
+        product.number += number;
+    }
+    else {
+        cart.push({
+            id: id,
+            number: number,
+            colorId: colorId,
+            sizeId: sizeId,
+            productPackage: productPackage
+        });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
 }

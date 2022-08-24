@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getNumberWithSeparator } from "./tools.js";
+import { getNumberWithSeparator, addProductToCard } from "./tools.js";
 
 export class Rating extends React.Component {
     getRatingForStar() {
@@ -83,6 +83,11 @@ class ProductCard extends React.Component {
         if (event.prevent) {
             event.preventDefault();
         }
+        else if (!window.location.pathname.includes('/product/')) {
+            let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+            page.y = window.pageYOffset;
+            localStorage.setItem('prevMainPage', JSON.stringify(page));
+        }
     }
 
     likeClick(event) {
@@ -133,12 +138,7 @@ class ProductCard extends React.Component {
             isInCart: true
         }));
 
-        let id = this.props.item.id;
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        for (let i = 0; i < this.state.productNumber; i++) {
-            cart.push(id);
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
+        addProductToCard(this.props.item.id, this.state.productNumber);
 
         this.props.funcUpdateCart();
     }
@@ -162,9 +162,9 @@ class ProductCard extends React.Component {
             );
         }
 
-        let InCartBtn = null;
+        let inCartBtn = null;
         if (item.colors[0].isAvaliable) {
-            InCartBtn = (
+            inCartBtn = (
                 <button onClick={this.addToCart} 
                     className={'product_cart_add_btn button' 
                                 + (this.state.isInCart ? " negative" : "")} >
@@ -173,7 +173,7 @@ class ProductCard extends React.Component {
             );
         }
         else {
-            InCartBtn = (
+            inCartBtn = (
                 <button onClick={this.addToCart} 
                     className={'product_cart_add_btn button' 
                                 + (this.state.isInCart ? " negative" : "")}
@@ -213,7 +213,7 @@ class ProductCard extends React.Component {
                     : <RatingContainer rating={item.rating}/>}
                 </div>
                 <div className="product_cart_add_outer">
-                    {InCartBtn}
+                    {inCartBtn}
                     {item.colors[0].isAvaliable && <RatingContainer rating={item.rating}/>}
                 </div>
             </Link>

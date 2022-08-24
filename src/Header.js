@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, Link, NavLink } from "react-router-dom";
 
 class NavMenu extends React.Component {
     constructor(props) {
@@ -78,20 +77,26 @@ function Intro(props) {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let products = require('./data/products.json');
 
-        let totalCost = cart.reduce((prevValue, curValue) => {
-            let product = products.find(pr => pr.id == curValue);
-            return prevValue + +product.price; 
+        let totalCost = cart.reduce((prevValue, curProductFromCart) => {
+            let product = products.find(pr => pr.id == curProductFromCart.id);
+            if (product) {
+                return prevValue + product.price * curProductFromCart.number; 
+            }
+            return prevValue;
         }, 0);
 
-        let reducedCost = cart.reduce((prevValue, curValue) => {
-            let product = products.find(pr => pr.id == curValue);
+        let reducedCost = cart.reduce((prevValue, curProductFromCart) => {
+            let product = products.find(pr => pr.id == curProductFromCart.id);
 
-            if (product.wholesaleMin <= totalCost) {
-                return prevValue + +product.wholesale; 
+            if (product) {
+                if (product.wholesaleMin <= totalCost) {
+                    return prevValue + product.wholesale * curProductFromCart.number; 
+                }
+                else {
+                    return prevValue + product.price * curProductFromCart.number;
+                }
             }
-            else {
-                return prevValue + +product.price; 
-            }
+            return prevValue;
         }, 0);
 
         return reducedCost;
@@ -152,27 +157,88 @@ class CatalogHorizontal extends React.Component {
     }
 }
 
-class BreadcrumbsContainer extends React.Component {
-    constructor(props) {
-        super(props);
+export function BreadcrumbsContainer(props) {
+    let { id, category, subcategory } = useParams();
+    const [breadcrumbs, setBreadcrumbs] = useState(getBreadcrumbs());
 
-        this.breadcrumbs = require('./data/breadcrumbs.json');
-    }
+    useEffect(() => {
+        setBreadcrumbs(getBreadcrumbs());
+    }, [id, category, subcategory, props.path]);
 
-    render() {
-        return (
-            <div className="breadcrumbs_container">
-                {this.breadcrumbs.map((item) => (
-                    <Link key={item.id}
-                            to={item.href}
-                            className='breadcrumbs'>
-                        {item.text}
-                    </Link>
-                ))}
-            </div>
-        ); 
+    return (
+        <div className="breadcrumbs_container">
+            {breadcrumbs.map((item) => (
+                <Link key={item.id}
+                        to={item.href}
+                        className='breadcrumbs'>
+                    {item.text}
+                </Link>
+            ))}
+        </div>
+    ); 
+
+    function getBreadcrumbs() {
+        let pathname = window.location.pathname;
+        let pathnameArr = pathname.split('/').filter(path => path);
+        let tempBreadcrumbs = [
+            {
+                id: 1,
+                href: "/",
+                text: "главная"
+            },
+            {
+                id: 2,
+                href: "/",
+                text: "каталог"
+            }
+        ];
+    
+        if (pathnameArr.length !== 0) {
+            if (pathnameArr[0] === 'product') {
+                let product = require('./data/products.json').find(pr => pr.id == pathnameArr[1]);
+                if (product) {
+                    tempBreadcrumbs.push({
+                        id: 3,
+                        href: window.location.pathname,
+                        text: product.title
+                    });
+                }
+            }
+            else {
+                let navItem = require('./data/navMenu.json').find(item => item.href === `/${pathnameArr[0]}`);
+                if (navItem) {
+                    tempBreadcrumbs[1].href = navItem.href;
+                    tempBreadcrumbs[1].text = navItem.text;
+                }
+                else if (pathnameArr[0] === 'sitemap') {
+                    tempBreadcrumbs[1].href = "/sitemap";
+                    tempBreadcrumbs[1].text = "Карта сайта";
+                }
+                else {
+                    let category = require('./data/catalog.json').find(item => item.href === `/${pathnameArr[0]}`);
+                    if (category) {
+                        tempBreadcrumbs.push({
+                            id: 3,
+                            href: category.href,
+                            text: category.category
+                        });
+
+                        let subcategory = category.subcategory.find(item => item.href === `/${pathnameArr[0]}/${pathnameArr[1]}`);
+                        if (subcategory) {
+                            tempBreadcrumbs.push({
+                                id: 4,
+                                href: subcategory.href,
+                                text: subcategory.subcategoryName
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        return tempBreadcrumbs;        
     }
 }
+
 
 class Header extends React.Component {
     render() {
@@ -183,7 +249,6 @@ class Header extends React.Component {
                         updateCartProp={this.props.updateCartProp} />
                 <SearchContainer funcToggleCatalog={this.props.funcToggleCatalog} />
                 <CatalogHorizontal />
-                <BreadcrumbsContainer />
             </header>
         );
     }

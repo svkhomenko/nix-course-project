@@ -301,13 +301,14 @@ main.not_avaliable .main_product_img {
     justify-content: space-between;
 }
 
-.main_description_add_outer .button {
+.main_description_add_btn,
+.main_description_continue_btn {
     padding: 7px 25px;
     border-radius: 45px;
     font-size: 14px;
 }
 
-.main_description_add_outer .main_description_continue_btn {
+.main_description_continue_btn {
     display: block;
     text-decoration: none;
     text-align: center;

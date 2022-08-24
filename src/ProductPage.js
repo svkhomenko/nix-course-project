@@ -2,7 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Rating } from "./ProductCard.js";
-import { getNumberWithSeparator } from "./tools.js";
+import { getNumberWithSeparator, addProductToCard } from "./tools.js";
+
+function MainDescriptionAddOuter(props) {
+    if (props.isAvaliable) {
+        return (
+            <div className="main_description_add_outer">
+                <button onClick={props.funcAddToCart} 
+                    className={'main_description_add_btn button' 
+                                + (props.isInCart ? " negative" : "")} >
+                    {props.isInCart ? "В корзине" : "В корзину"} 
+                </button> 
+                <a href={getPrevMainPage()} onClick={goBack()} className='main_description_continue_btn button negative'>Продолжить покупки</a>
+            </div>
+        );
+    }
+    else {
+        return (
+            <>
+                <button onClick={props.funcAddToCart} 
+                    className={'main_description_add_btn button' 
+                                + (props.isInCart ? " negative" : "")}
+                    style={{width: "100%", marginBottom: "15px"}} >
+                    {props.isInCart ? "В листе ожидания" : "В лист ожидания"}
+                </button> 
+                <a href={getPrevMainPage()} onClick={goBack()} className='main_description_continue_btn button negative'>Продолжить покупки</a>
+            </>
+        );
+    }
+
+    function getPrevMainPage() {
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        if (page.href) {
+            return page.href;
+        }
+        return '/';
+    }
+
+    function goBack() {
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        page.goBack = true;
+        localStorage.setItem('prevMainPage', JSON.stringify(page));
+    }
+}
 
 function ProductPage(props) {
     let {id} = useParams();
@@ -12,6 +54,7 @@ function ProductPage(props) {
     const [isLiked, setIsLiked] = useState(getIsLiked());
     const [sizeIndex, setSizeIndex] = useState(0);
     const [productNumber, setProductNumber] = useState(1);
+    const [isInCart, setIsInCart] = useState(getIsInCart());
 
     let tempColors = [];
     let tempAdditionalImages = [];
@@ -26,11 +69,20 @@ function ProductPage(props) {
     useEffect(() => {
         addToRecentlyWatched();
         window.scrollTo(0, 0);
+        
+        setIsLiked(getIsLiked());
+        setIsInCart(getIsInCart());
+        setMainImg(tempColors);
+        setAdditionalImages(tempAdditionalImages);
     }, [id]);
 
     useEffect(() => {
         setIsLiked(getIsLiked());
     }, [props.updateLikesProp]);
+
+    useEffect(() => {
+        setIsInCart(getIsInCart());
+    }, [props.updateCartProp]);
     
     if (!product) {
         return (<p>К сожалению, данный товар отсутствует</p>);
@@ -135,10 +187,9 @@ function ProductPage(props) {
                         </div>
                     </div>
 
-                    <div className="main_description_add_outer">
-                        <button className='main_description_add_btn button'>В корзину</button>
-                        <a href={getPrevMainPage()} className='main_description_continue_btn button negative'>Продолжить покупки</a>
-                    </div>
+                    <MainDescriptionAddOuter funcAddToCart={addToCart}
+                                            isInCart={isInCart} 
+                                            isAvaliable={product.colors[curColorIndex].isAvaliable} />
 
                     <div className="main_nav_container">
                         <div className="main_nav_item description">Описание</div>
@@ -347,14 +398,29 @@ function ProductPage(props) {
         }
     }
 
-    function getPrevMainPage() {
-        let page = JSON.parse(localStorage.getItem('prevMainPage'));
-        if (page && page.href) {
-            return page.href;
+    function getIsInCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let prInCart = cart.find(pr => pr.id == id);
+        if (prInCart) {
+            return true;
         }
-        return '/';
+        else {
+            return false;
+        }
+    }
 
-        // return localStorage.getItem('prevMainPage') || '/';
+    function addToCart() {
+        setIsInCart(true);
+        addProductToCard(id, productNumber, curColorIndex + 1, sizeIndex + 1, getProductPackage());
+        props.funcUpdateCart();
+    }
+
+    function getProductPackage() {
+        let select = document.querySelector('.main_description_package');
+        if (select && select.value) {
+            return select.value;
+        }
+        return "without";
     }
 }
 

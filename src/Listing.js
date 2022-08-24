@@ -92,12 +92,13 @@ class PageIndexContainer extends React.Component {
 function ListingContainer(props) {
     let { category, subcategory } = useParams();
 
+    let page = initPage();
+
     const [searchParams, setSearchParams] = useSearchParams();
     let search = searchParams.get('search') || '';
 
-    const [sortIndex, setSortIndex] = useState(0);
+    const [sortIndex, setSortIndex] = useState(initSortIndex());
     const [maxProductsPerPage, setMaxProductsPerPage] = useState(12);
-    const [currentPage, setCurrentPage] = useState(1);
     
     let sortFunctionsArray = [
         sortByPopularity,
@@ -106,6 +107,7 @@ function ListingContainer(props) {
     ];
     
     const [products, setProducts] = useState(require('./data/products.json').sort(sortFunctionsArray[sortIndex]));
+    const [currentPage, setCurrentPage] = useState(initCurrentPage());
     
     useEffect(() => {
         let tempProducts = require('./data/products.json');
@@ -118,6 +120,10 @@ function ListingContainer(props) {
         setProducts(setFromCart(setLiked(tempProducts.sort(sortFunctionsArray[sortIndex]))));
 
         addPrevMainPage();
+
+        if (page.y) {
+            window.scrollTo(0, page.y);
+        }
     }, [category, subcategory, search]);
 
     let begin = (currentPage - 1) * maxProductsPerPage;
@@ -187,16 +193,49 @@ function ListingContainer(props) {
         let index = event.target.dataset.sortIndex;
         setProducts(products.sort(sortFunctionsArray[index]));
         setSortIndex(index);
+
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        page.sortIndex = index;
+        localStorage.setItem('prevMainPage', JSON.stringify(page));
     }
 
     function changePage(event) {
         setCurrentPage(event.target.dataset.pageIndex);
+
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        page.curPage = event.target.dataset.pageIndex;
+        localStorage.setItem('prevMainPage', JSON.stringify(page));
     }
 
     function addPrevMainPage() {
-        let href = JSON.parse(localStorage.getItem('prevMainPage'));
-        href.href = window.location.href;
-        localStorage.setItem('prevMainPage', JSON.stringify(href));
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        page.href = window.location.href;
+        localStorage.setItem('prevMainPage', JSON.stringify(page));
+    }
+
+    function initPage() {
+        let page = JSON.parse(localStorage.getItem('prevMainPage')) || {};
+        if (page.goBack) {
+            page.goBack = false;
+            localStorage.setItem('prevMainPage', JSON.stringify(page));
+            return page;
+        }
+        return {};
+    }
+
+    function initSortIndex() {
+        if (page.sortIndex) {
+            return page.sortIndex;
+        }
+        return 0;
+    }
+
+    function initCurrentPage() {
+        if (page.curPage 
+            && Math.ceil(products.length / maxProductsPerPage) >= page.curPage) {
+            return page.curPage;
+        }
+        return 1;
     }
 }
 

@@ -1,9 +1,5 @@
 @import './_vars.css';
 
-header {
-    margin-bottom: 40px;
-}
-
 /* nav_menu */
 
 .nav_menu {
@@ -195,7 +191,7 @@ header {
 /* breadcrumbs */
 
 .breadcrumbs_container {
-    font-size: 0;
+    margin-bottom: 40px;
 }
 
 .breadcrumbs {

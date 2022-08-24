@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, Link, NavLink } from "react-router-dom";
 
 class CatalogItem extends React.Component {
     constructor(props) {
