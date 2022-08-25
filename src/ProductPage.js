@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Rating } from "./ProductCard.js";
-import { getNumberWithSeparator, addProductToCard } from "./tools.js";
+import { getNumberWithSeparator, addProductToCard, getTotalRating } from "./tools.js";
 
 function MainDescriptionAddOuter(props) {
     if (props.isAvaliable) {
@@ -46,6 +46,36 @@ function MainDescriptionAddOuter(props) {
     }
 }
 
+function Comment({comment}) {
+    return (
+        <div className="main_comment_container">
+            <div className="main_comment_header">
+                <div className="main_comment_title">
+                    <span className="main_comment_author">{comment.author + ", "}</span>
+                    <time className="main_comment_date" dateTime={getDateTime()}>{comment.date}</time>
+                </div>
+                <div className="main_comment_rating_empty">
+                    <div className="main_comment_rating_fill" 
+                    style={getRatingStyle()} />
+                </div>
+            </div>
+            <div className="main_comment_text">
+                {comment.text}
+            </div>
+        </div>
+    );
+
+    function getDateTime() {
+        let reg = /^(\d{2}).(\d{2}).(\d{4})$/;
+        return comment.date.replace(reg, '$3-$2-$1');
+    }
+
+    function getRatingStyle() {
+        let rating = 100 * comment.rating / 5;
+        return {width: rating + "%"}
+    }
+}
+
 function ProductPage(props) {
     let {id} = useParams();
     id = +id;
@@ -55,6 +85,9 @@ function ProductPage(props) {
     const [sizeIndex, setSizeIndex] = useState(0);
     const [productNumber, setProductNumber] = useState(1);
     const [isInCart, setIsInCart] = useState(getIsInCart());
+    const [curNavItemIndex, setCurNavItemIndex] = useState(1);
+    const [visibleCommentsNumber, setVisibleCommentsNumber] = useState(3);
+    const [comments, setComments] = useState(product.comments);
 
     let tempColors = [];
     let tempAdditionalImages = [];
@@ -92,9 +125,8 @@ function ProductPage(props) {
         <>
             <div className="h_product_title_container">
                 <div className="h_product_title">{product.title}</div>
-
-                <span className="h_rating_number">{product.rating}</span>
-                <Rating rating={product.rating} />
+                <span className="h_rating_number">{getTotalRating(comments)}</span>
+                <Rating rating={getTotalRating(comments)} />
             </div>
             <div className="h_product_subtitle">Арт. {product.sku + "" + (curColorIndex + 1)}</div>
 
@@ -192,98 +224,63 @@ function ProductPage(props) {
                                             isAvaliable={product.colors[curColorIndex].isAvaliable} />
 
                     <div className="main_nav_container">
-                        <div className="main_nav_item description">Описание</div>
-                        <div className="main_nav_item comments active">Отзывы (<span className="main_nav_comments_number">12</span>)</div>
+                        <div className={"main_nav_item" + (curNavItemIndex === 0 ? " active" : '')}
+                            onClick={changeNavItem.bind(null, null, 0)}>
+                            Описание
+                        </div>
+                        <div className={"main_nav_item" + (curNavItemIndex === 1 ? " active" : '')}
+                            onClick={changeNavItem.bind(null, null, 1)}>
+                            Отзывы ({comments.length})
+                        </div>
                     </div>
 
-                    <div className="main_comments_outer">
-                        <div className="main_comment_container">
-                            <div className="main_comment_header">
-                                <div className="main_comment_title">
-                                    <span className="main_comment_author">Алексей,</span>
-                                    <time className="main_comment_date" dateTime="2022-05-22">22.05.2022</time>
+                    {curNavItemIndex === 0 && 
+                        <div className="main_description_outer">
+                            {product.description
+                                        .split('\n')
+                                        .map((text, index) => <p key={index}>{text}</p>)}
+                        </div> }
+
+                    {curNavItemIndex === 1 &&
+                        <>
+                            {comments.slice(0, visibleCommentsNumber)
+                                            .map(comment => <Comment key={comment.id} comment={comment}/>)}
+
+                            {visibleCommentsNumber < comments.length 
+                            && <div className="main_load_comments_btn" onClick={addMoreComments}>Загрузить еще</div>}
+                
+                            <div className="main_your_comment_header">Добавить отзыв</div>
+                
+                            <form className="main_your_comment_form" onSubmit={submitNewComment}>
+                                <div className="main_your_comment_inputs_outer">
+                                    <input className="main_your_comment_inputs" type="text" name="name" placeholder="Введите имя" required />
+                                    <input className="main_your_comment_inputs" type="email" name="email" placeholder="Адрес электронной почты" required />
                                 </div>
-                                <div className="main_comment_rating_empty">
-                                    <div className="main_comment_rating_fill"></div>
-                                </div>
-                            </div>
-                            <div className="main_comment_text">
-                                Стильная женская косметичка - неотъемлемый атрибут каждой девушки!
-                            </div>
-                        </div>
-            
-                        <div className="main_comment_container">
-                            <div className="main_comment_header">
-                                <div className="main_comment_title">
-                                    <span className="main_comment_author">Елена,</span>
-                                    <time className="main_comment_date" dateTime="2022-06-01">01.06.2022</time>
-                                </div>
-                                <div className="main_comment_rating_empty">
-                                    <div className="main_comment_rating_fill"></div>
-                                </div>
-                            </div>
-                            <div className="main_comment_text">
-                                Она удобная, практичная и многофункциональная. Косметичка способна уместить всю косметику, необходимую в дороге, при этом не занимая много места. Так же в нее можно поместить наушники, различные украшения, деньги, мобильный телефон, солнцезащитные очки и другие мелочи.
-                            </div>
-                        </div>
-            
-                        <div className="main_comment_container">
-                            <div className="main_comment_header">
-                                <div className="main_comment_title">
-                                    <span className="main_comment_author">Светлана,</span>
-                                    <time className="main_comment_date" dateTime="2022-06-20">20.06.2022</time>
-                                </div>
-                                <div className="main_comment_rating_empty">
-                                    <div className="main_comment_rating_fill"></div>
-                                </div>
-                            </div>
-                            <div className="main_comment_text">
-                                Косметичка прозрачная выполнена из ПВХ. Габариты косметички: длина 31 см, ширина 22,5 см, высота 11 см. Идеальна для бассейна, душа.
-                            </div>
-                        </div>
-                        
-                        <div className="main_load_comments_btn">Загрузить еще</div>
-            
-                        <div className="main_your_comment_header">Добавить отзыв</div>
-            
-                        <form className="main_your_comment_form">
-                            <div className="main_your_comment_inputs_outer">
-                                <input className="main_your_comment_inputs" type="text" name="name" placeholder="Введите имя" required />
-                                <input className="main_your_comment_inputs" type="email" name="email" placeholder="Адрес электронной почты" required />
-                            </div>
-                            <div className="main_your_comment_inputs_outer">
-                                <textarea className="main_your_comment_inputs" name="comment" rows="6" placeholder="Добавьте комментарий" required />
-                                <div className="main_your_comment_btns_outer">
-                                    <div className="main_your_comment_label">Поставьте оценку</div>
-                                    <div className="main_your_comment_rating">
-                                        <input type="radio" id="star-5" name="rating" value="5" />
-                                        <label htmlFor="star-5" title="Оценка «5»"></label>	
-                                        <input type="radio" id="star-4" name="rating" value="4" />
-                                        <label htmlFor="star-4" title="Оценка «4»"></label>    
-                                        <input type="radio" id="star-3" name="rating" value="3" />
-                                        <label htmlFor="star-3" title="Оценка «3»"></label>  
-                                        <input type="radio" id="star-2" name="rating" value="2" />
-                                        <label htmlFor="star-2" title="Оценка «2»"></label>    
-                                        <input type="radio" id="star-1" name="rating" value="1" />
-                                        <label htmlFor="star-1" title="Оценка «1»"></label>
+                                <div className="main_your_comment_inputs_outer">
+                                    <textarea className="main_your_comment_inputs" name="comment" rows="6" placeholder="Добавьте комментарий" required />
+                                    <div className="main_your_comment_btns_outer">
+                                        <div className="main_your_comment_label">Поставьте оценку</div>
+                                        <div className="main_your_comment_rating">
+                                            <input type="radio" id="star-5" name="rating" value="5" />
+                                            <label htmlFor="star-5" title="Оценка «5»"></label>	
+                                            <input type="radio" id="star-4" name="rating" value="4" />
+                                            <label htmlFor="star-4" title="Оценка «4»"></label>    
+                                            <input type="radio" id="star-3" name="rating" value="3" />
+                                            <label htmlFor="star-3" title="Оценка «3»"></label>  
+                                            <input type="radio" id="star-2" name="rating" value="2" />
+                                            <label htmlFor="star-2" title="Оценка «2»"></label>    
+                                            <input type="radio" id="star-1" name="rating" value="1" />
+                                            <label htmlFor="star-1" title="Оценка «1»"></label>
+                                        </div>
+                                        <button className="button" type="submit">отправить</button>
                                     </div>
-                                    <button className="button" type="submit">отправить</button>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* <div className="main_description_outer">
-                        <p>Косметичка прозрачная WashBag на молнии и гладкой ручкой, представленна в двух размерах. Женская и мужская силиконовая сумка полностью герметична и защищена от попадания влаги и намокания. Дорожная косметичка и сумка хорошо держат форму, высококачественные замки прослужат не один год. Косметичка полностью прозрачна, что придаёт ей более изяшный вид, прозрачный дизайн позволяет легко найти то, что вам нужно без особых усилий. </p>
-                        <p>Возьмите универсальный органайзер с собой в дорогу, путешествие, отдых, на фитнес. Водонепроницаемую сумочку идеально взять с собой в баню, в бассейн, на пляж, в душ. Косметичку пенал применяют также для школьных принадлежностей, канцелярии. В неё с лёгкостью поместится любой ассортимент косметики, личные вещи, средства гигиены и одежда. Сумка-косметичка - унисекс,подходит для женщин,мужчин и детей.</p>
-                    </div>  */}
-
+                            </form>
+                        </> }
                 </div>
 
                 <div className="main_colors_container">
-                    <div className="main_color pink"></div>
-                    <div className="main_color grey"></div>
-                    <div className="main_color beige"></div>
+                    {product.mainColors.map(color => <div key={color.id} className="main_color" style={{backgroundColor: color.color}} />)}
                 </div>
             </main>
         </>
@@ -421,6 +418,41 @@ function ProductPage(props) {
             return select.value;
         }
         return "without";
+    }
+
+    function changeNavItem(event, index) {
+        setCurNavItemIndex(index);
+    }
+
+    function addMoreComments() {
+        setVisibleCommentsNumber(visibleCommentsNumber + 3);
+    }
+
+    function submitNewComment(event) {
+        event.preventDefault();
+        let form = document.getElementsByClassName("main_your_comment_form")[0];
+        let date = new Date();
+
+        let comment = {
+            id: product.comments.length + 1,
+            author: form.name.value,
+            date: `${addNull(date.getDate())}.${addNull(date.getMonth() + 1)}.${date.getFullYear()}`,
+            rating: form.rating.value || 0,
+            text: form.comment.value
+        };
+
+        product.comments.push(comment);
+        setComments([...product.comments]);
+        form.reset();
+
+        props.funcUpdateRating();
+    }
+
+    function addNull(number) {
+        if (number > 9) {
+            return number;
+        }
+        return '0' + number;
     }
 }
 

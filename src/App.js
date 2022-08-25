@@ -18,13 +18,15 @@ class App extends React.Component {
             updateLikesProp: 1,
             isCatalogOpen: true,
             updateCartProp: 1,
-            updateRecentlyWatchedProp: 1
+            updateRecentlyWatchedProp: 1,
+            updateRatingProp: 1
         }
         
         this.toggleCatalog = this.toggleCatalog.bind(this);
         this.updateLikes = this.updateLikes.bind(this);
         this.updateCart = this.updateCart.bind(this);
         this.updateRecentlyWatched = this.updateRecentlyWatched.bind(this);
+        this.updateRating = this.updateRating.bind(this);
     }
 
     toggleCatalog() {
@@ -48,6 +50,12 @@ class App extends React.Component {
     updateRecentlyWatched() {
         this.setState((state) => ({
             updateRecentlyWatchedProp: Math.random()
+        }));
+    }
+
+    updateRating() {
+        this.setState((state) => ({
+            updateRatingProp: Math.random()
         }));
     }
 
@@ -100,6 +108,7 @@ class App extends React.Component {
                                 <ProductPage funcUpdateRecentlyWatched={this.updateRecentlyWatched}
                                                 funcUpdateLikes={this.updateLikes}
                                                 funcUpdateCart={this.updateCart}
+                                                funcUpdateRating={this.updateRating}
                                                 updateLikesProp={this.state.updateLikesProp}
                                                 updateCartProp={this.state.updateCartProp} />
                             </>
@@ -109,12 +118,14 @@ class App extends React.Component {
                     <Recommended funcUpdateLikes={this.updateLikes}
                                 funcUpdateCart={this.updateCart}
                                 updateLikesProp={this.state.updateLikesProp}
-                                updateCartProp={this.state.updateCartProp} />
+                                updateCartProp={this.state.updateCartProp}
+                                updateRatingProp={this.state.updateRatingProp} />
                     <RecentlyWatched funcUpdateLikes={this.updateLikes}
                                 funcUpdateCart={this.updateCart}
                                 updateLikesProp={this.state.updateLikesProp}
                                 updateCartProp={this.state.updateCartProp}
-                                updateRecentlyWatchedProp={this.state.updateRecentlyWatchedProp} />
+                                updateRecentlyWatchedProp={this.state.updateRecentlyWatchedProp}
+                                updateRatingProp={this.state.updateRatingProp} />
                     <Footer />
                 </Router>
             </>

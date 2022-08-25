@@ -16,7 +16,7 @@ export function setFromCart(products) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     return products.map((product) => {
         let temp = {...product};
-        let prInCart = cart.find(pr => pr.id == temp.id);
+        let prInCart = cart.find(pr => +pr.id === +temp.id);
         if (prInCart) {
             temp.isInCart = true;
         }
@@ -34,7 +34,7 @@ export function getNumberWithSeparator(num) {
 export function addProductToCard(id, number, colorId = 1, sizeId = 1, productPackage = "without") {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    let product = cart.find(pr => pr.id == id && pr.colorId == colorId && pr.sizeId == sizeId && pr.productPackage == productPackage);
+    let product = cart.find(pr => +pr.id === +id && +pr.colorId === +colorId && +pr.sizeId === +sizeId && pr.productPackage === productPackage);
     if (product) {
         product.number += number;
     }
@@ -49,4 +49,15 @@ export function addProductToCard(id, number, colorId = 1, sizeId = 1, productPac
     }
     
     localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+export function getTotalRating(comments) {
+    let sum = 0;
+    for (let i = 0; i < comments.length; i++) {
+        sum += +comments[i].rating;
+    }
+    if (comments.length) {
+        return +(sum / comments.length).toFixed(1);
+    }
+    return 0;
 }

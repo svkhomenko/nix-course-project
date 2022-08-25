@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getNumberWithSeparator, addProductToCard } from "./tools.js";
+import { getNumberWithSeparator, addProductToCard, getTotalRating } from "./tools.js";
 
 export class Rating extends React.Component {
     getRatingForStar() {
@@ -210,11 +210,11 @@ class ProductCard extends React.Component {
                     </div>
                     {item.colors[0].isAvaliable 
                     ? <ProductNumberOuter funcDown={this.productNumberDown} number={this.state.productNumber} funcUp={this.productNumberUp}/> 
-                    : <RatingContainer rating={item.rating}/>}
+                    : <RatingContainer rating={getTotalRating(item.comments)}/>}
                 </div>
                 <div className="product_cart_add_outer">
                     {inCartBtn}
-                    {item.colors[0].isAvaliable && <RatingContainer rating={item.rating}/>}
+                    {item.colors[0].isAvaliable && <RatingContainer rating={getTotalRating(item.comments)}/>}
                 </div>
             </Link>
         );

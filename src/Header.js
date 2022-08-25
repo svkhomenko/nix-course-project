@@ -78,7 +78,7 @@ function Intro(props) {
         let products = require('./data/products.json');
 
         let totalCost = cart.reduce((prevValue, curProductFromCart) => {
-            let product = products.find(pr => pr.id == curProductFromCart.id);
+            let product = products.find(pr => +pr.id === +curProductFromCart.id);
             if (product) {
                 return prevValue + product.price * curProductFromCart.number; 
             }
@@ -86,7 +86,7 @@ function Intro(props) {
         }, 0);
 
         let reducedCost = cart.reduce((prevValue, curProductFromCart) => {
-            let product = products.find(pr => pr.id == curProductFromCart.id);
+            let product = products.find(pr => +pr.id === +curProductFromCart.id);
 
             if (product) {
                 if (product.wholesaleMin <= totalCost) {
@@ -109,7 +109,7 @@ function Intro(props) {
 }
 
 function SearchContainer(props) {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [search, setSearch] = useState(searchParams.get('search') || '');
 
     useEffect(() => {
@@ -195,7 +195,7 @@ export function BreadcrumbsContainer(props) {
     
         if (pathnameArr.length !== 0) {
             if (pathnameArr[0] === 'product') {
-                let product = require('./data/products.json').find(pr => pr.id == pathnameArr[1]);
+                let product = require('./data/products.json').find(pr => +pr.id === +pathnameArr[1]);
                 if (product) {
                     tempBreadcrumbs.push({
                         id: 3,

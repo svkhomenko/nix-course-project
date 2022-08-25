@@ -28,11 +28,11 @@ export function Recommended(props) {
 
     useEffect(() => {
         setProducts(getProducts());
-    }, [props.updateLikesProp, props.updateCartProp]);
+    }, [props.updateLikesProp, props.updateCartProp, props.updateRatingProp]);
 
     return (
         <>
-            {products.length != 0 &&
+            {products.length !== 0 &&
             <HorizontalListContainer title="Рекомендуем"
                 products={products}
                 funcUpdateLikes={props.funcUpdateLikes}
@@ -52,11 +52,11 @@ export function RecentlyWatched(props) {
 
     useEffect(() => {
         setProducts(getProducts());
-    }, [props.updateLikesProp, props.updateCartProp, props.updateRecentlyWatchedProp]);
+    }, [props.updateLikesProp, props.updateCartProp, props.updateRecentlyWatchedProp, props.updateRatingProp]);
 
     return (
         <>
-            {products.length != 0 &&
+            {products.length !== 0 &&
             <HorizontalListContainer title="Недавно просмотренные"
                 products={products}
                 funcUpdateLikes={props.funcUpdateLikes}
@@ -68,7 +68,7 @@ export function RecentlyWatched(props) {
         let idArr = JSON.parse(localStorage.getItem('recentlyWatched')) || [];
         let allProducts = require('./data/products.json');
 
-        return setFromCart(setLiked(allProducts.filter(product => idArr.find(id => id == product.id))
-                                                .sort((a, b) => idArr.findIndex(id => id == b.id) - idArr.findIndex(id => id == a.id))));
+        return setFromCart(setLiked(allProducts.filter(product => idArr.find(id => +id === +product.id))
+                                                .sort((a, b) => idArr.findIndex(id => +id === +b.id) - idArr.findIndex(id => +id === +a.id))));
     }
 }

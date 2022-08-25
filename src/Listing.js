@@ -10,15 +10,15 @@ class SortContainer extends React.Component {
             <div className="sort_container">
                 <div className="sort_nav">
                     Сортировать:
-                    <span className={this.props.activeIndex == 0 ? "sort_nav_items active" : "sort_nav_items"} 
+                    <span className={+this.props.activeIndex === 0 ? "sort_nav_items active" : "sort_nav_items"} 
                         data-sort-index='0' onClick={this.props.funcSort}>
                         Популярные
                     </span>
-                    <span className={this.props.activeIndex == 1 ? "sort_nav_items active" : "sort_nav_items"} 
+                    <span className={+this.props.activeIndex === 1 ? "sort_nav_items active" : "sort_nav_items"} 
                         data-sort-index='1' onClick={this.props.funcSort}>
                         Сначала дешевые
                     </span>
-                    <span className={this.props.activeIndex == 2 ? "sort_nav_items active" : "sort_nav_items"} 
+                    <span className={+this.props.activeIndex === 2 ? "sort_nav_items active" : "sort_nav_items"} 
                         data-sort-index='2' onClick={this.props.funcSort}>
                         Сначала дорогие
                     </span>
@@ -67,7 +67,7 @@ class PageIndexContainer extends React.Component {
                     if (index > 0) {
                         return (
                             <span key={index}
-                                className={index == this.props.currentPage ? "page_index active" : "page_index"}
+                                className={+index === +this.props.currentPage ? "page_index active" : "page_index"}
                                 data-page-index={index}
                                 onClick={this.props.funcChangePage}>
                                 {index}
@@ -94,11 +94,11 @@ function ListingContainer(props) {
 
     let page = initPage();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     let search = searchParams.get('search') || '';
 
     const [sortIndex, setSortIndex] = useState(initSortIndex());
-    const [maxProductsPerPage, setMaxProductsPerPage] = useState(12);
+    const [maxProductsPerPage] = useState(12);
     
     let sortFunctionsArray = [
         sortByPopularity,

@@ -319,7 +319,7 @@ main.not_avaliable .main_product_img {
 
 .main_nav_container {
     display: flex;
-    margin: 60px 0 50px;
+    margin: 60px 0 40px;
 }
 
 .main_nav_item {
@@ -340,7 +340,7 @@ main.not_avaliable .main_product_img {
     color: var(--black-color);
 }
 
-.main_nav_item.description {
+.main_nav_item:not(:last-of-type) {
     margin-right: 70px;
 }
 
@@ -381,7 +381,6 @@ main.not_avaliable .main_product_img {
 } 
 
 .main_comment_rating_fill {
-    width: 80%;
     height: 100%;
     background-size: 18px 18px;
     background-image: url('../images/fill_star.png');
@@ -502,16 +501,4 @@ textarea.main_your_comment_inputs {
     width: 275px;
     height: 275px;
     border-radius: 10px;
-}
-
-.main_color.pink {
-    background-color: #FCE3E3;
-}
-
-.main_color.grey {
-    background-color: #F1F1F1;
-}
-
-.main_color.beige {
-    background-color: #EDE0D8;
 }
