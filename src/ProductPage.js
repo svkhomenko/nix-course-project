@@ -124,7 +124,7 @@ function ProductPage(props) {
     return (
         <>
             <div className="h_product_title_container">
-                <div className="h_product_title">{product.title}</div>
+                <div className="h_product_title">{product.title}{", "}{product.size[sizeIndex].size}</div>
                 <span className="h_rating_number">{getTotalRating(comments)}</span>
                 <Rating rating={getTotalRating(comments)} />
             </div>
@@ -166,44 +166,47 @@ function ProductPage(props) {
                         ))}
                     </div>
 
-                    <div className="main_description_category">
-                        Размер:
-                    </div>
-
-                    <div className="main_description_size_container">
-                        {product.size.map((size) => (
-                            <div key={size.id} onClick={changeSize.bind(null, null, size.id - 1)}
-                                className={"main_description_size" + getClassName(size, sizeIndex)}>
-                                {size.size}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="main_description_category">
-                        Количество:
-                    </div>
-                    
-                    <div className='main_description_number_outer'>
-                        <div onClick={productNumberDown}
-                            className={productNumber === 1 ? "disabled" : ""}>
-                            <span className="iconify main_description_number_btn" data-icon="ep:arrow-left" />
+                    {product.colors[curColorIndex].isAvaliable &&
+                    <>
+                        <div className="main_description_category">
+                            Размер:
                         </div>
-                        <span className="main_description_number">{productNumber}</span>
-                        <div onClick={productNumberUp}>
-                            <span className="iconify main_description_number_btn" data-icon="ep:arrow-right" />
-                        </div>   
-                    </div>
 
-                    <div className="main_description_category">
-                        Подарочная упаковка:
-                    </div>
+                        <div className="main_description_size_container">
+                            {product.size.map((size) => (
+                                <div key={size.id} onClick={changeSize.bind(null, null, size.id - 1)}
+                                    className={"main_description_size" + getClassName(size, sizeIndex)}>
+                                    {size.size}
+                                </div>
+                            ))}
+                        </div>
 
-                    <select className="main_description_package" defaultValue="" name="package">
-                        <option value="" disabled>Выбрать упаковку</option>
-                        <option value="gift">Подарочная упаковка</option>
-                        <option value="regular">Обычная упаковка</option>
-                        <option value="without">Без упаковки</option>
-                    </select>
+                        <div className="main_description_category">
+                            Количество:
+                        </div>
+                        
+                        <div className='main_description_number_outer'>
+                            <div onClick={productNumberDown}
+                                className={productNumber === 1 ? "disabled" : ""}>
+                                <span className="iconify main_description_number_btn" data-icon="ep:arrow-left" />
+                            </div>
+                            <span className="main_description_number">{productNumber}</span>
+                            <div onClick={productNumberUp}>
+                                <span className="iconify main_description_number_btn" data-icon="ep:arrow-right" />
+                            </div>   
+                        </div>
+
+                        <div className="main_description_category">
+                            Подарочная упаковка:
+                        </div>
+
+                        <select className="main_description_package" defaultValue="" name="package">
+                            <option value="" disabled>Выбрать упаковку</option>
+                            <option value="gift">Подарочная упаковка</option>
+                            <option value="regular">Обычная упаковка</option>
+                            <option value="without">Без упаковки</option>
+                        </select>
+                    </>}
 
                     <div className="main_description_category">
                         Цена:

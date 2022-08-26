@@ -60,7 +60,7 @@ function Intro(props) {
                     <span className="iconify" data-icon="ant-design:heart-filled"></span>
                     <div className="intro_btn_subtext intro_likes">{likesNumber}</div>
                 </div>
-                <div className="intro_btns_outer" onClick={remove}>
+                <div className="intro_btns_outer" onClick={props.funcToggleCart}>
                     <span className="iconify" data-icon="ps:shopping-cart"></span>
                     <div className="intro_btn_subtext intro_cart">{cartNumber}</div>
                 </div>
@@ -100,11 +100,6 @@ function Intro(props) {
         }, 0);
 
         return reducedCost;
-    }
-
-    function remove() {
-        localStorage.setItem('cart', JSON.stringify([]));
-        console.log(localStorage.getItem('cart'));
     }
 }
 
@@ -245,7 +240,8 @@ class Header extends React.Component {
         return (
             <header>
                 <NavMenu />
-                <Intro updateLikesProp={this.props.updateLikesProp}
+                <Intro funcToggleCart={this.props.funcToggleCart}
+                        updateLikesProp={this.props.updateLikesProp}
                         updateCartProp={this.props.updateCartProp} />
                 <SearchContainer funcToggleCatalog={this.props.funcToggleCatalog} />
                 <CatalogHorizontal />

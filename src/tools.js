@@ -61,3 +61,9 @@ export function getTotalRating(comments) {
     }
     return 0;
 }
+
+export let packages = {
+    "gift": "Подарочная упаковка",
+    "regular": "Обычная упаковка",
+    "without": "Без упаковки"
+}

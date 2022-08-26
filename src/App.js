@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
+import Cart from "./Cart.js";
 import Header, { BreadcrumbsContainer } from "./Header.js";
 import CatalogContainer from './Catalog.js';
 import ListingContainer from './Listing.js';
@@ -19,7 +20,8 @@ class App extends React.Component {
             isCatalogOpen: true,
             updateCartProp: 1,
             updateRecentlyWatchedProp: 1,
-            updateRatingProp: 1
+            updateRatingProp: 1,
+            isCartOpen: false
         }
         
         this.toggleCatalog = this.toggleCatalog.bind(this);
@@ -27,6 +29,7 @@ class App extends React.Component {
         this.updateCart = this.updateCart.bind(this);
         this.updateRecentlyWatched = this.updateRecentlyWatched.bind(this);
         this.updateRating = this.updateRating.bind(this);
+        this.toggleCart = this.toggleCart.bind(this);
     }
 
     toggleCatalog() {
@@ -59,11 +62,21 @@ class App extends React.Component {
         }));
     }
 
+    toggleCart() {
+        this.setState((state) => ({
+            isCartOpen: !state.isCartOpen
+        }));
+    }
+
     render() {
         return (
             <>
                 <Router>
+                    {this.state.isCartOpen 
+                    && <Cart funcToggleCart={this.toggleCart} />}
+
                     <Header funcToggleCatalog={this.toggleCatalog}
+                            funcToggleCart={this.toggleCart}
                             updateLikesProp={this.state.updateLikesProp}
                             updateCartProp={this.state.updateCartProp} />
 
@@ -113,6 +126,8 @@ class App extends React.Component {
                                                 updateCartProp={this.state.updateCartProp} />
                             </>
                         } />
+
+                        <Route path="/*" element={<Navigate to="/" />} />
                     </Routes>
 
                     <Recommended funcUpdateLikes={this.updateLikes}
