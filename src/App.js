@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
+import Likes from "./Likes.js";
 import Cart from "./Cart.js";
 import Header, { BreadcrumbsContainer } from "./Header.js";
 import CatalogContainer from './Catalog.js';
@@ -21,7 +22,8 @@ class App extends React.Component {
             updateCartProp: 1,
             updateRecentlyWatchedProp: 1,
             updateRatingProp: 1,
-            isCartOpen: false
+            isCartOpen: false,
+            isLikesOpen: false
         }
         
         this.toggleCatalog = this.toggleCatalog.bind(this);
@@ -30,6 +32,7 @@ class App extends React.Component {
         this.updateRecentlyWatched = this.updateRecentlyWatched.bind(this);
         this.updateRating = this.updateRating.bind(this);
         this.toggleCart = this.toggleCart.bind(this);
+        this.toggleLikes = this.toggleLikes.bind(this);
     }
 
     toggleCatalog() {
@@ -66,17 +69,31 @@ class App extends React.Component {
         this.setState((state) => ({
             isCartOpen: !state.isCartOpen
         }));
+        document.body.style.overflow = '';
+    }
+
+    toggleLikes() {
+        this.setState((state) => ({
+            isLikesOpen: !state.isLikesOpen
+        }));
+        document.body.style.overflow = '';
     }
 
     render() {
         return (
             <>
                 <Router>
+                    {this.state.isLikesOpen 
+                    && <Likes funcToggleLikes={this.toggleLikes}
+                            funcUpdateLikes={this.updateLikes} />}
+
                     {this.state.isCartOpen 
-                    && <Cart funcToggleCart={this.toggleCart} />}
+                    && <Cart funcToggleCart={this.toggleCart}
+                            funcUpdateCart={this.updateCart} />}
 
                     <Header funcToggleCatalog={this.toggleCatalog}
                             funcToggleCart={this.toggleCart}
+                            funcToggleLikes={this.toggleLikes}
                             updateLikesProp={this.state.updateLikesProp}
                             updateCartProp={this.state.updateCartProp} />
 

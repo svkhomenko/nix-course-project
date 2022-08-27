@@ -13,7 +13,7 @@ function MainDescriptionAddOuter(props) {
                                 + (props.isInCart ? " negative" : "")} >
                     {props.isInCart ? "В корзине" : "В корзину"} 
                 </button> 
-                <a href={getPrevMainPage()} onClick={goBack()} className='main_description_continue_btn button negative'>Продолжить покупки</a>
+                <a href={getPrevMainPage()} onClick={goBack} className='main_description_continue_btn button negative'>Продолжить покупки</a>
             </div>
         );
     }
@@ -26,7 +26,7 @@ function MainDescriptionAddOuter(props) {
                     style={{width: "100%", marginBottom: "15px"}} >
                     {props.isInCart ? "В листе ожидания" : "В лист ожидания"}
                 </button> 
-                <a href={getPrevMainPage()} onClick={goBack()} className='main_description_continue_btn button negative'>Продолжить покупки</a>
+                <a href={getPrevMainPage()} onClick={goBack} className='main_description_continue_btn button negative'>Продолжить покупки</a>
             </>
         );
     }
@@ -80,7 +80,7 @@ function ProductPage(props) {
     let {id} = useParams();
     id = +id;
     let product = require('./data/products.json').find(pr => pr.id == id);
-    const [curColorIndex, setCurColorIndex] = useState(0);
+    const [curColorIndex, setCurColorIndex] = useState(initCurColorIndex());
     const [isLiked, setIsLiked] = useState(getIsLiked());
     const [sizeIndex, setSizeIndex] = useState(0);
     const [productNumber, setProductNumber] = useState(1);
@@ -115,7 +115,7 @@ function ProductPage(props) {
 
     useEffect(() => {
         setIsInCart(getIsInCart());
-    }, [props.updateCartProp]);
+    }, [props.updateCartProp, curColorIndex]);
     
     if (!product) {
         return (<p>К сожалению, данный товар отсутствует</p>);
@@ -312,6 +312,17 @@ function ProductPage(props) {
         props.funcUpdateRecentlyWatched();
     }
 
+    function initCurColorIndex() {
+        let colorId = JSON.parse(localStorage.getItem('colorId'));
+        if (colorId) {
+            localStorage.removeItem('colorId');
+            if (product.colors[colorId - 1]) {
+                return colorId - 1;
+            }
+        }
+        return 0;
+    }
+
     function getIsLiked() {
         return (JSON.parse(localStorage.getItem('liked')) || []).includes(id);
     }
@@ -400,18 +411,23 @@ function ProductPage(props) {
 
     function getIsInCart() {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let prInCart = cart.find(pr => pr.id == id);
+        let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
+
+        let prInCart = cart.find(pr => pr.id == id && pr.colorId == curColorIndex + 1);
         if (prInCart) {
             return true;
         }
-        else {
-            return false;
+
+        let prInWaitingList = waitingList.find(pr => pr.id == id && pr.colorId == curColorIndex + 1);
+        if (prInWaitingList) {
+            return true;
         }
+        return false;
     }
 
     function addToCart() {
         setIsInCart(true);
-        addProductToCard(id, productNumber, curColorIndex + 1, sizeIndex + 1, getProductPackage());
+        addProductToCard(product.colors[curColorIndex].isAvaliable, id, productNumber, curColorIndex + 1, sizeIndex + 1, getProductPackage());
         props.funcUpdateCart();
     }
 

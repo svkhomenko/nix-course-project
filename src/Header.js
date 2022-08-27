@@ -56,7 +56,7 @@ function Intro(props) {
                     <span className="iconify" data-icon="bi:person-fill"></span>
                     <div className="intro_btn_subtext">Войти</div>
                 </div>
-                <div className="intro_btns_outer">
+                <div className="intro_btns_outer" onClick={props.funcToggleLikes}>
                     <span className="iconify" data-icon="ant-design:heart-filled"></span>
                     <div className="intro_btn_subtext intro_likes">{likesNumber}</div>
                 </div>
@@ -241,6 +241,7 @@ class Header extends React.Component {
             <header>
                 <NavMenu />
                 <Intro funcToggleCart={this.props.funcToggleCart}
+                        funcToggleLikes={this.props.funcToggleLikes}
                         updateLikesProp={this.props.updateLikesProp}
                         updateCartProp={this.props.updateCartProp} />
                 <SearchContainer funcToggleCatalog={this.props.funcToggleCatalog} />

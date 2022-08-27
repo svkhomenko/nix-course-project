@@ -138,7 +138,7 @@ class ProductCard extends React.Component {
             isInCart: true
         }));
 
-        addProductToCard(this.props.item.id, this.state.productNumber);
+        addProductToCard(this.props.item.colors[0].isAvaliable, this.props.item.id, this.state.productNumber);
 
         this.props.funcUpdateCart();
     }

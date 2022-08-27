@@ -1,11 +1,140 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
+import { ProductFromPopup } from "./Likes.js";
 import { packages } from "./tools.js";
+
+function FullProductFromCart({ product, ...props }) {
+    const [productNumber, setProductNumber] = useState(product.number);
+
+    useEffect(() => {
+        changeProductNumber();
+    }, [productNumber]);
+
+    return (
+        <Link to={'/product/' + product.id} onClick={linkClick} className={"popup_product_container" + (product.colors[product.colorId - 1].isAvaliable ? "" : " not_avaliable")}>
+            <div className="popup_product_img_outer">
+                <img className="popup_product_img" src={require("./images/" + product.colors[product.colorId - 1].img)} alt="Product" />
+            </div>
+
+            <div className="popup_product_description">
+                <div className="popup_product_title">{product.title}</div>
+                <div>
+                    {product.size[product.sizeId - 1].size}<br />
+                    {packages[product.productPackage]}
+                </div>
+
+                <div className='popup_product_number_outer'>
+                    <div onClick={productNumberDown}
+                        className={productNumber === 1 ? "disabled" : ""}>
+                        <span className="iconify popup_product_number_btn" data-icon="ep:arrow-left" />
+                    </div>
+                    <span className="popup_product_number">{productNumber}</span>
+                    <div onClick={productNumberUp}>
+                        <span className="iconify popup_product_number_btn" data-icon="ep:arrow-right" />
+                    </div>   
+                </div>
+            </div>
+
+            <div className="popup_product_price_container">
+                <div className={"popup_product_price" 
+                    + (+product.nPrice > +product.nWholesale ? " crossed" : "")}>
+                    {product.nPrice}
+                </div>
+                {+product.nPrice > +product.nWholesale &&
+                    <div className="popup_product_wholesale">{product.nWholesale}</div> }
+            </div>
+
+            <div onClick={deleteProduct} >
+                <span className="iconify popup_delete_btn" data-icon="fluent:delete-24-regular" />
+            </div>
+        </Link>
+    );
+
+    function linkClick(event) {
+        if (event.prevent) {
+            event.preventDefault();
+        }
+        else {
+            localStorage.setItem('colorId', JSON.stringify(product.colorId));
+            props.funcToggleCart();
+        }
+    }
+
+    function deleteProduct(event) {
+        event.prevent = true;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        let productIndex = cart.findIndex(pr => pr.id == product.id && pr.colorId == product.colorId && pr.sizeId == product.sizeId && pr.productPackage === product.productPackage);
+        if (productIndex !== -1) {
+            cart.splice(productIndex, 1);
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        props.funcUpdateCart();
+    }
+
+    function productNumberUp(event) {
+        event.prevent = true;
+        setProductNumber(productNumber + 1);
+    }   
+    
+    function productNumberDown(event) {
+        event.prevent = true;
+        if (productNumber !== 1) {
+            setProductNumber(productNumber - 1);
+        }
+    }
+
+    function changeProductNumber() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        let productFromCart = cart.find(pr => pr.id == product.id && pr.colorId == product.colorId && pr.sizeId == product.sizeId && pr.productPackage === product.productPackage);
+        if (productFromCart) {
+            productFromCart.number = productNumber;
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        props.funcUpdateCart();
+    }
+}
+
+function ProductFromWaitingList({ product, ...props}) {
+    return (
+        <ProductFromPopup product={product}
+                        funcLinkClick={linkClick}
+                        funcDeleteProduct={deleteProduct} />
+    );
+
+    function linkClick(event) {
+        if (event.prevent) {
+            event.preventDefault();
+        }
+        else {
+            localStorage.setItem('colorId', JSON.stringify(product.colorId));
+            props.funcToggleCart();
+        }
+    }
+
+    function deleteProduct(event) {
+        event.prevent = true;
+        let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
+
+        let index = waitingList.findIndex(pr => pr.id == product.id && pr.colorId == product.colorId);
+        if (index !== -1) {
+            waitingList.splice(index, 1);
+        }
+
+        localStorage.setItem('waitingList', JSON.stringify(waitingList));
+        props.funcUpdateWaitingList();
+    }
+}
 
 function Cart(props) {
     const [cartProducts, setCartProducts] = useState(getCartProducts());
     const [totalCost, setTotalCost] = useState(getTotalCost());
     const [reducedCost, setReducedCost] = useState(getReducedCost());
+    const [waitingListProducts, setWaitingListProducts] = useState(getWaitingListProducts());
 
     useEffect(() => {
         setTotalCost(getTotalCost());
@@ -15,102 +144,53 @@ function Cart(props) {
         setReducedCost(getReducedCost());
     }, [totalCost]);
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+    }, []);
+
     return (
         <>
-            <div className="cart_background" onClick={props.funcToggleCart} />
-            <div className="cart_container">
-                <div className="cart_outer">
+            <div className="popup_background" onClick={props.funcToggleCart} />
+            <div className="popup_container">
+                <div className="popup_outer">
                     <div onClick={props.funcToggleCart}>
-                        <span className="iconify cart_close_btn" data-icon="ep:close-bold" />
+                        <span className="iconify popup_close_btn" data-icon="ep:close-bold" />
                     </div>
-                    <div className="cart_header">Корзина</div>
-
-                    {/*
-                        colorId: 1
-                        id: 7
-                        number: 1
-                        productPackage: "without"
-                        sizeId: 1 
-                     */}
-
+                    <div className="popup_header">Корзина</div>
                     {
                         cartProducts.length !== 0
                         ? <>
-                            {cartProducts.map((product, index) => {
-                                return (
-                                    <div className="cart_product_container" key={index}>
-                                        <div className="cart_product_img_outer">
-                                            <img className="cart_product_img" src={require("./images/" + product.colors[product.colorId - 1].img)} alt="Product" />
-                                        </div>
-
-                                        <div className="cart_product_description">
-                                            <div className="cart_product_title">{product.title}</div>
-                                            <div>
-                                                {product.size[product.sizeId - 1].size}<br />
-                                                {packages[product.productPackage]}
-                                            </div>
-
-                                            <div className='cart_product_number_outer'>
-                                                <span className="iconify cart_product_number_btn" data-icon="ep:arrow-left"></span>
-                                                <span className="cart_product_number">{product.number}</span>
-                                                <span className="iconify cart_product_number_btn" data-icon="ep:arrow-right"></span>
-                                            </div>
-                                        </div>
-
-                                        <div className="cart_product_price_container">
-                                            <div className={"cart_product_price" 
-                                                + (+product.nPrice > +product.nWholesale ? " crossed" : "")}>
-                                                {product.nPrice}
-                                            </div>
-                                            {+product.nPrice > +product.nWholesale &&
-                                                <div className="cart_product_wholesale">{product.nWholesale}</div> }
-                                        </div>
-
-                                        <div onClick={deleteProduct.bind(product)} >
-                                            <span className="iconify cart_delete_btn" data-icon="fluent:delete-24-regular" />
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            {cartProducts.map((product) => (
+                                <FullProductFromCart key={product.id + "-" + product.colorId + "-" + product.sizeId + "-" + product.productPackage} 
+                                                    product={product}
+                                                    funcToggleCart={props.funcToggleCart}
+                                                    funcUpdateCart={updateCart} />
+                            ))}
                         </>
                         : <p>Корзина пуста</p>
                     }
 
-                    {/* <div className="cart_product_container">
-                        <div className="cart_product_img_outer">
-                            <img className="cart_product_img" src={require("./images/product1.png")} alt="Product" />
-                        </div>
-
-                        <div className="cart_product_description">
-                            <div className="cart_product_title">Косметичка непромокаемая</div>
-                            <div>
-                                31/22/11 см<br />
-                                Подарочная упаковка
-                            </div>
-
-                            <div className='cart_product_number_outer'>
-                                <span className="iconify cart_product_number_btn" data-icon="ep:arrow-left"></span>
-                                <span className="cart_product_number">1</span>
-                                <span className="iconify cart_product_number_btn" data-icon="ep:arrow-right"></span>
-                            </div>
-                        </div>
-
-                        <div className="cart_product_price_container">
-                            <div className="cart_product_price crossed">123</div>
-                            <div className="cart_product_wholesale">103</div>
-                        </div>
-                
-                        <span className="iconify cart_delete_btn" data-icon="fluent:delete-24-regular" />
-                    </div> */}
-
+                    <div className="popup_header second">Лист ожидания</div>
+                    {
+                        waitingListProducts.length !== 0
+                        ? <>
+                            {waitingListProducts.map((product) => (
+                                <ProductFromWaitingList key={product.id + "-" + product.colorId} 
+                                                    product={product}
+                                                    funcToggleCart={props.funcToggleCart}
+                                                    funcUpdateWaitingList={updateWaitingList} />
+                            ))}
+                        </>
+                        : <p>Лист ожидания пуст</p>
+                    }
                 </div>
 
-                <div className="cart_total_container">
-                    <div className="cart_total_outer">
+                <div className="popup_total_container">
+                    <div className="popup_total_outer">
                         Итого:
                         {totalCost > reducedCost &&
-                            <div className="cart_total_wholesale_price">{reducedCost}</div> }
-                        <div className={"cart_total_price" 
+                            <div className="popup_total_wholesale_price">{reducedCost}</div> }
+                        <div className={"popup_total_price" 
                             + (totalCost > reducedCost ? " crossed" : "")}>
                             {totalCost}
                         </div>
@@ -134,42 +214,12 @@ function Cart(props) {
         }); 
     }
 
-    // function getTotalCost() {
-    //     let products = require('./data/products.json');
-
-    //     return cartProducts.reduce((prevValue, curProductFromCart) => {
-    //         let product = products.find(pr => +pr.id === +curProductFromCart.id);
-    //         if (product) {
-    //             return prevValue + product.price * curProductFromCart.number; 
-    //         }
-    //         return prevValue;
-    //     }, 0);
-    // }
-
     function getTotalCost() {
         return cartProducts.reduce((prevValue, curProduct) => {
             curProduct.nPrice = curProduct.price * curProduct.number;
             return prevValue + curProduct.price * curProduct.number; 
         }, 0);
     }
-
-    // function getReducedCost() {
-    //     let products = require('./data/products.json');
-
-    //     return cartProducts.reduce((prevValue, curProductFromCart) => {
-    //         let product = products.find(pr => +pr.id === +curProductFromCart.id);
-
-    //         if (product) {
-    //             if (product.wholesaleMin <= totalCost) {
-    //                 return prevValue + product.wholesale * curProductFromCart.number; 
-    //             }
-    //             else {
-    //                 return prevValue + product.price * curProductFromCart.number;
-    //             }
-    //         }
-    //         return prevValue;
-    //     }, 0);
-    // }
 
     function getReducedCost() {
         return cartProducts.reduce((prevValue, curProduct) => {
@@ -184,16 +234,23 @@ function Cart(props) {
         }, 0);
     }
 
-    function deleteProduct() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        let productIndex = cart.findIndex(pr => pr.id == this.id && pr.colorId == this.colorId && pr.sizeId == this.sizeId && pr.productPackage === this.productPackage);
-        if (productIndex !== -1) {
-            cart.splice(productIndex, 1);
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
+    function updateCart() {
         setCartProducts(getCartProducts());
+        props.funcUpdateCart();
+    }
+
+    function getWaitingListProducts() {
+        let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
+        let products = require('./data/products.json');
+
+        return waitingList.map(waitingListProduct => {
+            let { colors, title, price } = products.find(pr => pr.id == waitingListProduct.id);
+            return { colors, title, price, ...waitingListProduct };
+        }); 
+    }
+
+    function updateWaitingList() {
+        setWaitingListProducts(getWaitingListProducts());
     }
 }
 

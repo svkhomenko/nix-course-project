@@ -14,7 +14,9 @@ export function setLiked(products) {
 
 export function setFromCart(products) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    return products.map((product) => {
+    let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
+
+    let tempProducts = products.map((product) => {
         let temp = {...product};
         let prInCart = cart.find(pr => +pr.id === +temp.id);
         if (prInCart) {
@@ -25,30 +27,54 @@ export function setFromCart(products) {
         }
         return temp;
     });
+
+    return tempProducts.map((product) => {
+        let temp = {...product};
+        let prInWaitingList = waitingList.find(pr => pr.id == temp.id);
+        if (prInWaitingList) {
+            temp.isInCart = true;
+        }
+        return temp;
+    });
 }
 
 export function getNumberWithSeparator(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-export function addProductToCard(id, number, colorId = 1, sizeId = 1, productPackage = "without") {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    let product = cart.find(pr => +pr.id === +id && +pr.colorId === +colorId && +pr.sizeId === +sizeId && pr.productPackage === productPackage);
-    if (product) {
-        product.number += number;
+export function addProductToCard(isAvaliable, id, number, colorId = 1, sizeId = 1, productPackage = "without") {
+    if (isAvaliable) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+        let product = cart.find(pr => +pr.id === +id && +pr.colorId === +colorId && +pr.sizeId === +sizeId && pr.productPackage === productPackage);
+        if (product) {
+            product.number += number;
+        }
+        else {
+            cart.push({
+                id: id,
+                number: number,
+                colorId: colorId,
+                sizeId: sizeId,
+                productPackage: productPackage
+            });
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
     else {
-        cart.push({
-            id: id,
-            number: number,
-            colorId: colorId,
-            sizeId: sizeId,
-            productPackage: productPackage
-        });
+        let waitingList = JSON.parse(localStorage.getItem('waitingList')) || [];
+
+        let product = waitingList.find(pr => pr.id == id && pr.colorId == colorId);
+        if (!product) {
+            waitingList.push({
+                id: id,
+                colorId: colorId
+            });
+            
+            localStorage.setItem('waitingList', JSON.stringify(waitingList));
+        }
     }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 export function getTotalRating(comments) {
