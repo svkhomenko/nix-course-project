@@ -81,6 +81,7 @@
     width: 130px;
     overflow: hidden;
     border-radius: 10px;
+    transition: transform 0.5s;
 }
 
 .popup_product_container.not_avaliable .popup_product_img_outer::after {
@@ -98,6 +99,10 @@
 .popup_product_img {
     width: 100%;
     height: auto;
+}
+
+.popup_product_container:hover .popup_product_img_outer {
+    transform: scale(1.1);
 }
 
 .popup_product_container.not_avaliable .popup_product_img {

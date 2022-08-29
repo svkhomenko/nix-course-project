@@ -190,7 +190,7 @@ class ProductCard extends React.Component {
                     {likeBtn}
                 </div>
                 <div className="product_title">
-                    {item.title}{", "}{item.size[0].size}{' '}{item.id}{' '}{item.numberOfBuying}
+                    {item.title}{", "}{item.size[0].size}
                 </div>
                 <div className="product_colors">
                     {item.colors.map((color) => ( 

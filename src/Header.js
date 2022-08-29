@@ -43,11 +43,11 @@ function Intro(props) {
                 </div>
                 <div className="logo_subtext">вместе дешеле.org</div>
             </a>
-            
-            <div className="intro_telephone_outer">
+
+            <a href="tel: +19688905556" className="intro_telephone_outer">
                 <span className="iconify" data-icon="carbon:phone-filled"></span>
-                <a href="tel: +19688905556">+1 (968) 890 55 56</a>
-            </div>
+                <span className="telephone">+1 (968) 890 55 56</span>
+            </a>
             
             <h1>Интернет-магазин с бесплатной доставкой</h1>
 

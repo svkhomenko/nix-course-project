@@ -151,9 +151,9 @@ function ProductPage(props) {
                         Цвет:
                         <div className="main_description_share">
                             Поделиться:
-                            <a href="#"><span className="iconify" data-icon="akar-icons:link-chain"></span></a>
-                            <a href="#"><span className="iconify" data-icon="cib:viber"></span></a>
-                            <a href="#"><span className="iconify" data-icon="uil:telegram-alt"></span></a>
+                            <a href={window.location.href}><span className="iconify" data-icon="akar-icons:link-chain"></span></a>
+                            <a href={window.location.href}><span className="iconify" data-icon="cib:viber"></span></a>
+                            <a href={window.location.href}><span className="iconify" data-icon="uil:telegram-alt"></span></a>
                         </div>
                     </div>
 
