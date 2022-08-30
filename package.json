@@ -24,7 +24,8 @@
       "react-app/jest"
     ],
     "rules": {
-      "eqeqeq": 0
+      "eqeqeq": 0,
+      "react-hooks/exhaustive-deps": 0
     }
   },
   "browserslist": {
